@@ -1,5 +1,5 @@
 
-# JClan - simple clan system for your minecraft server.
+# JClans - simple clan system for your minecraft server.
 
 Dependency: LuckPerms, PlaceholderAPI.
 
