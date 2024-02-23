@@ -1,6 +1,6 @@
-name: JClan
+name: JClans
 version: '${project.version}'
-main: jcn.jclan.JClan
+main: jcn.jclan.JClans
 api-version: '1.20'
 softdepend:
   - PlaceholderApi

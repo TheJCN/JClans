@@ -4,15 +4,15 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
-import jcn.jclan.JClan;
+import jcn.jclan.JClans;
 import jcn.jclan.utilities.DatabaseMethods;
 
 import java.sql.Connection;
 
 public class PlaceholderApiPlugin extends PlaceholderExpansion {
-    private JClan plugin;
+    private JClans plugin;
     private Connection connection;
-    public PlaceholderApiPlugin(JClan plugin, Connection connection){
+    public PlaceholderApiPlugin(JClans plugin, Connection connection){
         this.plugin = plugin;
         this.connection = connection;
     }

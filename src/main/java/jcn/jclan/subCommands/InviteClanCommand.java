@@ -10,7 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import jcn.jclan.JClan;
+import jcn.jclan.JClans;
 import jcn.jclan.buttons.AcceptClanInvite;
 import jcn.jclan.buttons.DeclineClanInvite;
 import jcn.jclan.utilities.DatabaseMethods;
@@ -24,10 +24,10 @@ import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 public class InviteClanCommand {
     private Connection connection;
     private LuckPerms luckPerms;
-    private JClan plugin;
+    private JClans plugin;
     private Map<Player, String> pendingInvites  = new HashMap<>();
 
-    public InviteClanCommand(Connection connection, LuckPerms luckPerms, JClan plugin){
+    public InviteClanCommand(Connection connection, LuckPerms luckPerms, JClans plugin){
         this.connection = connection;
         this.luckPerms = luckPerms;
         this.plugin = plugin;

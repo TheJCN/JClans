@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.persistence.PersistentDataType;
-import jcn.jclan.JClan;
+import jcn.jclan.JClans;
 import jcn.jclan.listeners.InventoryClick;
 import jcn.jclan.utilities.DatabaseMethods;
 
@@ -29,9 +29,9 @@ import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 public class GuiCommand {
 
     private Connection connection;
-    private JClan plugin;
+    private JClans plugin;
     private NamespacedKey key;
-    public GuiCommand(Connection connection, JClan plugin, NamespacedKey key){
+    public GuiCommand(Connection connection, JClans plugin, NamespacedKey key){
         this.connection = connection;
         this.plugin = plugin;
         this.key = key;

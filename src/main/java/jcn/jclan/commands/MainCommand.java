@@ -8,7 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import jcn.jclan.JClan;
+import jcn.jclan.JClans;
 import jcn.jclan.subCommands.*;
 
 import java.sql.Connection;
@@ -18,9 +18,9 @@ import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 public class MainCommand implements CommandExecutor {
     private Connection connection;
     private LuckPerms luckPerms;
-    private JClan plugin;
+    private JClans plugin;
     private NamespacedKey key;
-    public MainCommand(Connection connection, LuckPerms luckPerms, JClan plugin, NamespacedKey key){
+    public MainCommand(Connection connection, LuckPerms luckPerms, JClans plugin, NamespacedKey key){
         this.connection = connection;
         this.luckPerms = luckPerms;
         this.plugin = plugin;

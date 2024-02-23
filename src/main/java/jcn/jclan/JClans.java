@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 
-public final class JClan extends JavaPlugin {
+public final class JClans extends JavaPlugin {
     private Connection connection;
     private LuckPerms luckPerms;
     private NamespacedKey key;

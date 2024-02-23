@@ -1,5 +1,4 @@
 jcn\jclan\subCommands\HelpCommand.class
-jcn\jclan\JClan.class
 jcn\jclan\subCommands\CreateClanCommand.class
 jcn\jclan\buttons\DeclineDeleteClan.class
 jcn\jclan\listeners\InventoryClose.class
@@ -16,6 +15,7 @@ jcn\jclan\subCommands\DeleteClanCommand.class
 jcn\jclan\buttons\AcceptClanInvite.class
 jcn\jclan\plugins\LuckPermsPlugin.class
 jcn\jclan\subCommands\ClanListCommand.class
+jcn\jclan\JClans.class
 jcn\jclan\tabcompleters\ClanTabCompleter.class
 jcn\jclan\plugins\PlaceholderApiPlugin.class
 jcn\jclan\subCommands\KickCommand.class
