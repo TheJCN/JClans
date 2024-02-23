@@ -1,0 +1,20 @@
+name: JClan
+version: '1.0'
+main: jcn.jclan.JClan
+api-version: '1.20'
+softdepend:
+  - PlaceholderApi
+  - LuckPerms
+commands:
+  clan:
+    description: Основная команда плагина
+  accept_delete_clan:
+    description: Удаление клана
+  decline_delete_clan:
+    description: Отмена удаления клана
+  accept_invite_in_clan:
+    description: Принять заявку в клан
+  decline_invite_in_clan:
+    description: Отклонить заявку в клан
+  c:
+    description: Клановый чат
