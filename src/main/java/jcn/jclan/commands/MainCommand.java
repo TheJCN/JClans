@@ -59,8 +59,8 @@ public class MainCommand implements CommandExecutor {
                 break;
 
             case "help":
-                HelpCommand helpCommand = new HelpCommand();
-                helpCommand.HelpCommand(player);
+                HelpCommand helpCommand = new HelpCommand(connection);
+                helpCommand.sendHelpMessage(player);
                 break;
 
             case "list":
