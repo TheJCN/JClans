@@ -17,7 +17,7 @@ public class HelpCommand {
     public void sendHelpMessage(Player player){
         DatabaseMethods databaseMethods = new DatabaseMethods(connection);
         String prefix = databaseMethods.getClanPrefix(player);
-        player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Список всех команд плагина JClan для " + ChatColor.GOLD +  player.getName() + ChatColor.RESET + "[" + prefix + ChatColor.RESET + "]");
+        player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Список всех команд плагина JClan для " + ChatColor.GOLD +  player.getName() + ChatColor.RESET + " [" + prefix + ChatColor.RESET + "]");
         player.sendMessage(ChatColor.GOLD  + "---------------------------------------");
         player.sendMessage(ChatColor.RESET + "/clan create - Команда для создания клана.");
         player.sendMessage(ChatColor.RESET + "/clan invite - Команда для приглашения игрока в клан.");
