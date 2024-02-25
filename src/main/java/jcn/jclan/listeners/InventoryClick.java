@@ -13,14 +13,12 @@ import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.persistence.PersistentDataType;
 import jcn.jclan.subCommands.GuiCommand;
 
-import java.sql.Connection;
+import java.util.Objects;
 
 public class InventoryClick implements Listener {
-    private Connection connection;
-    private NamespacedKey key;
-    private GuiCommand handler;
-    public InventoryClick(Connection connection, NamespacedKey key, GuiCommand handler){
-        this.connection = connection;
+    private final NamespacedKey key;
+    private final GuiCommand handler;
+    public InventoryClick(NamespacedKey key, GuiCommand handler) {
         this.key = key;
         this.handler = handler;
     }
@@ -28,8 +26,7 @@ public class InventoryClick implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event){
         if (event.getCurrentItem() == null) return;
-        if (!(event.getWhoClicked() instanceof Player)) return;
-        Player player = (Player) event.getWhoClicked();
+        if (!(event.getWhoClicked() instanceof Player player)) return;
         ItemStack clickedItem = event.getCurrentItem();
         Inventory inventory = event.getClickedInventory();
         if (inventory == null) return;
@@ -37,7 +34,7 @@ public class InventoryClick implements Listener {
         PersistentDataHolder holder = (PersistentDataHolder) inventory.getHolder();
         if (holder == null) return;
         PersistentDataContainer container = holder.getPersistentDataContainer();
-        if (container.get(key, PersistentDataType.STRING) != null && container.get(key, PersistentDataType.STRING).equals("BestClan")) {
+        if (container.get(key, PersistentDataType.STRING) != null && Objects.equals(container.get(key, PersistentDataType.STRING), "BestClan")) {
             event.setCancelled(true);
         }
         handler.handleClanSettingsClick(player, clickedItem);

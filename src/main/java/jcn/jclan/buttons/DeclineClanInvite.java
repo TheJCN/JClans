@@ -1,6 +1,5 @@
 package jcn.jclan.buttons;
 
-import net.luckperms.api.LuckPerms;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,18 +8,13 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import jcn.jclan.subCommands.InviteClanCommand;
 
-import java.sql.Connection;
 import java.util.Map;
 
 import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 
 public class DeclineClanInvite implements CommandExecutor {
-    private Connection connection;
-    private LuckPerms luckPerms;
-    private InviteClanCommand handler;
-    public DeclineClanInvite(Connection connection, LuckPerms luckPerms, InviteClanCommand handler){
-        this.connection = connection;
-        this.luckPerms = luckPerms;
+    private final InviteClanCommand handler;
+    public DeclineClanInvite(InviteClanCommand handler){
         this.handler = handler;
     }
     @Override

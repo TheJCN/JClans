@@ -16,10 +16,10 @@ import java.sql.Connection;
 import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 
 public class MainCommand implements CommandExecutor {
-    private Connection connection;
-    private LuckPerms luckPerms;
-    private JClans plugin;
-    private NamespacedKey key;
+    private final Connection connection;
+    private final LuckPerms luckPerms;
+    private final JClans plugin;
+    private final NamespacedKey key;
     public MainCommand(Connection connection, LuckPerms luckPerms, JClans plugin, NamespacedKey key){
         this.connection = connection;
         this.luckPerms = luckPerms;

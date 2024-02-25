@@ -11,8 +11,8 @@ import java.sql.Connection;
 import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 
 public class CreateClanCommand {
-    private Connection connection;
-    private LuckPerms luckPerms;
+    private final Connection connection;
+    private final LuckPerms luckPerms;
     public CreateClanCommand(Connection connection, LuckPerms luckPerms){
         this.connection = connection;
         this.luckPerms = luckPerms;

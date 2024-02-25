@@ -13,12 +13,13 @@ import jcn.jclan.utilities.DatabaseMethods;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Objects;
 
 import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 
 public class AcceptDeleteClan implements CommandExecutor {
-    private Connection connection;
-    private LuckPerms luckPerms;
+    private final Connection connection;
+    private final LuckPerms luckPerms;
     public AcceptDeleteClan(Connection connection, LuckPerms luckPerms){
         this.connection = connection;
         this.luckPerms = luckPerms;
@@ -26,14 +27,13 @@ public class AcceptDeleteClan implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        if (commandSender instanceof Player){
-            Player player = (Player) commandSender;
+        if (commandSender instanceof Player player){
             DatabaseMethods databaseMethods = new DatabaseMethods(connection);
             LuckPermsPlugin lp = new LuckPermsPlugin(luckPerms);
             List<String> clanMembers = databaseMethods.getClanMembers(databaseMethods.getClanName(player));
             for (String member : clanMembers){
                 Player memberPlayer = Bukkit.getPlayer(member);
-                lp.removePermission(memberPlayer, "clan.member");
+                lp.removePermission(Objects.requireNonNull(memberPlayer), "clan.member");
                 if (memberPlayer.isOnline()){
                     memberPlayer.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Вы были удаленны из клана, так как создатель удалил его");
                 }

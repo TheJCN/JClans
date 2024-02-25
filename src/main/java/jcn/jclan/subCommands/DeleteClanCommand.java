@@ -5,7 +5,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import jcn.jclan.utilities.DatabaseMethods;
 
@@ -14,7 +13,7 @@ import java.sql.Connection;
 import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 
 public class DeleteClanCommand {
-    private Connection connection;
+    private final Connection connection;
     public DeleteClanCommand(Connection connection){
         this.connection = connection;
     }

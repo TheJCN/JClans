@@ -18,19 +18,16 @@ import jcn.jclan.listeners.InventoryClick;
 import jcn.jclan.utilities.DatabaseMethods;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.bukkit.Material.*;
 import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 
 public class GuiCommand {
 
-    private Connection connection;
-    private JClans plugin;
-    private NamespacedKey key;
+    private final Connection connection;
+    private final JClans plugin;
+    private final NamespacedKey key;
     public GuiCommand(Connection connection, JClans plugin, NamespacedKey key){
         this.connection = connection;
         this.plugin = plugin;
@@ -42,7 +39,7 @@ public class GuiCommand {
             player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Вы должны быть участником клана что бы открыть меню клана!");
             return;
         }
-        InventoryClick inventoryClick = new InventoryClick(connection, key, this);
+        InventoryClick inventoryClick = new InventoryClick(key, this);
         Bukkit.getServer().getPluginManager().registerEvents(inventoryClick, plugin);
         player.openInventory(createGui(player));
     }
@@ -54,7 +51,7 @@ public class GuiCommand {
         clanMenu.setItem(16, logicSettingButton());
 
         PersistentDataHolder holder = (PersistentDataHolder) clanMenu.getHolder();
-        PersistentDataContainer container = holder.getPersistentDataContainer();
+        PersistentDataContainer container = Objects.requireNonNull(holder).getPersistentDataContainer();
         container.set(key, PersistentDataType.STRING, "BestClan");
         return clanMenu;
     }
@@ -62,7 +59,7 @@ public class GuiCommand {
     private ItemStack logicNameButton(Player player){
         ItemStack nameButton = new ItemStack(DIAMOND_BLOCK);
         ItemMeta nameButtonItemMeta = nameButton.getItemMeta();
-        nameButtonItemMeta.setCustomModelData(555);
+        Objects.requireNonNull(nameButtonItemMeta).setCustomModelData(555);
         nameButtonItemMeta.setDisplayName(ChatColor.AQUA + "Информация");
         DatabaseMethods databaseMethods = new DatabaseMethods(connection);
 
@@ -82,32 +79,31 @@ public class GuiCommand {
     }
 
     private ItemStack logicStatisticButton() {
-        ItemStack statsticButton = new ItemStack(EMERALD_BLOCK);
-        ItemMeta statsticButtonItemMeta = statsticButton.getItemMeta();
-        statsticButtonItemMeta.setCustomModelData(555);
+        ItemStack statisticButton = new ItemStack(EMERALD_BLOCK);
+        ItemMeta statsticButtonItemMeta = statisticButton.getItemMeta();
+        Objects.requireNonNull(statsticButtonItemMeta).setCustomModelData(555);
         statsticButtonItemMeta.setDisplayName(ChatColor.GREEN + "Участники");
         statsticButtonItemMeta.setLore(Collections.singletonList(ChatColor.DARK_GREEN + "Нажмите, чтобы посмотреть список"));
-        statsticButton.setItemMeta(statsticButtonItemMeta);
-        statsticButton = addIdentifier(statsticButton, "members_inventory");
-        return statsticButton;
+        statisticButton.setItemMeta(statsticButtonItemMeta);
+        addIdentifier(statisticButton, "members_inventory");
+        return statisticButton;
     }
 
     private ItemStack logicSettingButton() {
         ItemStack settingButton = new ItemStack(GOLD_BLOCK);
         ItemMeta settingButtonItemMeta = settingButton.getItemMeta();
-        settingButtonItemMeta.setCustomModelData(555);
+        Objects.requireNonNull(settingButtonItemMeta).setCustomModelData(555);
         settingButtonItemMeta.setDisplayName(ChatColor.YELLOW + "Настройки");
         settingButtonItemMeta.setLore(Collections.singletonList(ChatColor.GOLD + "Нажмите, чтобы открыть настройки клана"));
         settingButton.setItemMeta(settingButtonItemMeta);
-        settingButton = addIdentifier(settingButton, "clan_settings");
+        addIdentifier(settingButton, "clan_settings");
         return settingButton;
     }
 
-    private ItemStack addIdentifier(ItemStack item, String identifier) {
+    private void addIdentifier(ItemStack item, String identifier) {
         ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.getPersistentDataContainer().set(NamespacedKey.minecraft("custom-identifier"), PersistentDataType.STRING, identifier);
+        Objects.requireNonNull(itemMeta).getPersistentDataContainer().set(NamespacedKey.minecraft("custom-identifier"), PersistentDataType.STRING, identifier);
         item.setItemMeta(itemMeta);
-        return item;
     }
 
     public void handleClanSettingsClick(Player player, ItemStack clickedItem) {//todo Заменить сравнение по имени на NBT или PersistentDataContainers
@@ -157,13 +153,13 @@ public class GuiCommand {
         for (String memberName : members) {
             ItemStack skull = new ItemStack(PLAYER_HEAD);
             SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
-            skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(memberName));
+            Objects.requireNonNull(skullMeta).setOwningPlayer(Bukkit.getPlayer(memberName));
             skullMeta.setDisplayName(memberName);
             skull.setItemMeta(skullMeta);
             membersListInventory.addItem(skull);
         }
         PersistentDataHolder holder = (PersistentDataHolder) membersListInventory.getHolder();
-        PersistentDataContainer container = holder.getPersistentDataContainer();
+        PersistentDataContainer container = Objects.requireNonNull(holder).getPersistentDataContainer();
         container.set(key, PersistentDataType.STRING, "BestClan");
         return membersListInventory;
     }
@@ -178,7 +174,7 @@ public class GuiCommand {
         settingInventory.setItem(16, name_tag());
 
         PersistentDataHolder holder = (PersistentDataHolder) settingInventory.getHolder();
-        PersistentDataContainer container = holder.getPersistentDataContainer();
+        PersistentDataContainer container = Objects.requireNonNull(holder).getPersistentDataContainer();
         container.set(key, PersistentDataType.STRING, "BestClan");
         return settingInventory;
     }
@@ -186,22 +182,22 @@ public class GuiCommand {
     private ItemStack book() {
         ItemStack book = new ItemStack(BOOK);
         ItemMeta bookItemMeta = book.getItemMeta();
-        bookItemMeta.setCustomModelData(555);
+        Objects.requireNonNull(bookItemMeta).setCustomModelData(555);
         bookItemMeta.setDisplayName("Название клана");
         bookItemMeta.setLore(Collections.singletonList("Нажмите, чтобы изменить название клана"));
         book.setItemMeta(bookItemMeta);
-        book = addIdentifier(book, "book_anvil");
+        addIdentifier(book, "book_anvil");
         return book;
     }
 
     private ItemStack name_tag() {
         ItemStack book = new ItemStack(NAME_TAG);
         ItemMeta bookItemMeta = book.getItemMeta();
-        bookItemMeta.setCustomModelData(555);
+        Objects.requireNonNull(bookItemMeta).setCustomModelData(555);
         bookItemMeta.setDisplayName("Префикс клана");
         bookItemMeta.setLore(Collections.singletonList("Нажмите, чтобы изменить префикс клана"));
         book.setItemMeta(bookItemMeta);
-        book = addIdentifier(book, "name_tag_anvil");
+        addIdentifier(book, "name_tag_anvil");
         return book;
     }
 
@@ -216,15 +212,15 @@ public class GuiCommand {
             if (slot != AnvilGUI.Slot.OUTPUT) {
                 return Collections.emptyList();
             }
-            if (!stateSnapshot.getText().equals("")) {
+            if (!stateSnapshot.getText().isEmpty()) {
                 String newName = stateSnapshot.getText();
                 String name = ChatColor.translateAlternateColorCodes('&', newName);
                 DatabaseMethods dataBase = new DatabaseMethods(connection);
                 player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Новое название клана: " + name);
                 dataBase.updateNameByClanName(dataBase.getClanName(player), name);
-                return Arrays.asList(AnvilGUI.ResponseAction.close());
+                return List.of(AnvilGUI.ResponseAction.close());
             } else {
-                return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("Попробуйте еще раз"));
+                return List.of(AnvilGUI.ResponseAction.replaceInputText("Попробуйте еще раз"));
             }
         });
         builder.open(player);
@@ -241,20 +237,20 @@ public class GuiCommand {
             if (slot != AnvilGUI.Slot.OUTPUT) {
                 return Collections.emptyList();
             }
-            if (!stateSnapshot.getText().equals("")) {
+            if (!stateSnapshot.getText().isEmpty()) {
                 String newName = stateSnapshot.getText();
                 String prefix = ChatColor.translateAlternateColorCodes('&', newName);
                 if(lengthWithoutColor(prefix) == 2) {
                     player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Новый префикс клана: " + prefix);
                     databaseMethods.updatePrefixByClanName(databaseMethods.getClanName(player), prefix);
-                    return Arrays.asList(AnvilGUI.ResponseAction.close());
+                    return List.of(AnvilGUI.ResponseAction.close());
                 }
                 else {
                     player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Префикс должен состоять из 2х символов");
-                    return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("Попробуйте еще раз"));
+                    return List.of(AnvilGUI.ResponseAction.replaceInputText("Попробуйте еще раз"));
                 }
             } else {
-                return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("Попробуйте еще раз"));
+                return List.of(AnvilGUI.ResponseAction.replaceInputText("Попробуйте еще раз"));
             }
         });
         builder.open(player);

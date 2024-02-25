@@ -1,16 +1,17 @@
 package jcn.jclan.utilities;
 
+import lombok.SneakyThrows;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class DatabaseManager {
 
-    private String host;
-    private int port;
-    private String database;
-    private String username;
-    private String password;
+    private final String host;
+    private final int port;
+    private final String database;
+    private final String username;
+    private final String password;
     private Connection connection;
 
     public DatabaseManager(String host, int port, String database, String username, String password) {
@@ -21,14 +22,10 @@ public class DatabaseManager {
         this.password = password;
     }
 
+    @SneakyThrows
     public boolean connect() {
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database, username, password);
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database, username, password);
+        return true;
     }
 
     public Connection getConnection() {

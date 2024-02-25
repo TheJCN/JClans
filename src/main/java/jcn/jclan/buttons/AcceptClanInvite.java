@@ -17,9 +17,9 @@ import java.util.Map;
 import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 
 public class AcceptClanInvite implements CommandExecutor {
-    private Connection connection;
-    private LuckPerms luckPerms;
-    private InviteClanCommand handler;
+    private final Connection connection;
+    private final LuckPerms luckPerms;
+    private final InviteClanCommand handler;
     public AcceptClanInvite(Connection connection, LuckPerms luckPerms, InviteClanCommand handler){
         this.connection = connection;
         this.luckPerms = luckPerms;

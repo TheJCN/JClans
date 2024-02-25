@@ -10,8 +10,7 @@ import java.util.List;
 import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 
 public class ClanListCommand {
-    private Connection connection;
-    private int clansPerPage = 3;
+    private final Connection connection;
 
     public ClanListCommand(Connection connection) {
         this.connection = connection;
@@ -20,6 +19,7 @@ public class ClanListCommand {
     public void ClanList(Player player, int pageNumber) {
         DatabaseMethods dataBase = new DatabaseMethods(connection);
         List<String> allClans = dataBase.getClansList();
+        int clansPerPage = 3;
         int countPages = (int) Math.ceil((double) allClans.size() / clansPerPage);
         if (pageNumber <= 0 || pageNumber > countPages) {
             player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Ошибка! Неизвестная страница");

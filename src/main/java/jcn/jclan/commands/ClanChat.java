@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class ClanChat implements CommandExecutor {
-    private Connection connection;
+    private final Connection connection;
     public ClanChat(Connection connection){
         this.connection = connection;
     }
@@ -37,10 +37,10 @@ public class ClanChat implements CommandExecutor {
     private String getMessage(String[] strings, String clanPrefix, String sender){
         StringBuilder message = new StringBuilder();
 
-        for (int i = 0; i < strings.length; i++) {
-            message.append(strings[i] + " ");
+        for (String string : strings) {
+            message.append(string).append(" ");
         }
         String prefix = "[" + clanPrefix + ChatColor.RESET +"] " + sender + ":";
-        return prefix + " " + message.toString();
+        return prefix + " " + message;
     }
 }

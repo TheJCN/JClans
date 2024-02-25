@@ -4,16 +4,14 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
-import jcn.jclan.JClans;
 import jcn.jclan.utilities.DatabaseMethods;
 
 import java.sql.Connection;
+import java.util.Objects;
 
 public class PlaceholderApiPlugin extends PlaceholderExpansion {
-    private JClans plugin;
-    private Connection connection;
-    public PlaceholderApiPlugin(JClans plugin, Connection connection){
-        this.plugin = plugin;
+    private final Connection connection;
+    public PlaceholderApiPlugin(Connection connection){
         this.connection = connection;
     }
 
@@ -41,10 +39,9 @@ public class PlaceholderApiPlugin extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer player, String params) {
         if (params.equalsIgnoreCase("prefix")) {
             String playerName = player.getName();
-            String clanPrefix = String.valueOf(new DatabaseMethods(connection).getClanPrefix(Bukkit.getPlayer(playerName)));
+            String clanPrefix = String.valueOf(new DatabaseMethods(connection).getClanPrefix(Objects.requireNonNull(Bukkit.getPlayer(Objects.requireNonNull(playerName)))));
             if (!clanPrefix.isEmpty()) {
-                String coloredPrefix = "&r[" + clanPrefix.toUpperCase() + "&r]";
-                return coloredPrefix;
+                return "&r[" + clanPrefix.toUpperCase() + "&r]";
             } else {
                 return "";
             }

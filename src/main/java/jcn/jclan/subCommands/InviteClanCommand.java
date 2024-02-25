@@ -1,5 +1,6 @@
 package jcn.jclan.subCommands;
 
+import lombok.Getter;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -18,14 +19,16 @@ import jcn.jclan.utilities.DatabaseMethods;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
 
 public class InviteClanCommand {
-    private Connection connection;
-    private LuckPerms luckPerms;
-    private JClans plugin;
-    private Map<Player, String> pendingInvites  = new HashMap<>();
+    private final Connection connection;
+    private final LuckPerms luckPerms;
+    private final JClans plugin;
+    @Getter
+    private final Map<Player, String> pendingInvites  = new HashMap<>();
 
     public InviteClanCommand(Connection connection, LuckPerms luckPerms, JClans plugin){
         this.connection = connection;
@@ -60,7 +63,7 @@ public class InviteClanCommand {
         new BukkitRunnable() {
             @Override
             public void run() {
-                pendingInvites.remove(player, targetPlayer);
+                pendingInvites.remove(player, targetPlayer.getName());
             }
         }.runTaskLater(plugin, 20*30L);
     }
@@ -77,11 +80,8 @@ public class InviteClanCommand {
                 .append(cancelButton)
                 .build();
         ((Audience) targetPlayer).sendMessage(message);
-        plugin.getCommand("accept_invite_in_clan").setExecutor(new AcceptClanInvite(connection, luckPerms, this));
-        plugin.getCommand("decline_invite_in_clan").setExecutor(new DeclineClanInvite(connection, luckPerms, this));
+        Objects.requireNonNull(plugin.getCommand("accept_invite_in_clan")).setExecutor(new AcceptClanInvite(connection, luckPerms, this));
+        Objects.requireNonNull(plugin.getCommand("decline_invite_in_clan")).setExecutor(new DeclineClanInvite(this));
     }
 
-    public Map<Player, String> getPendingInvites() {
-        return pendingInvites;
-    }
 }
