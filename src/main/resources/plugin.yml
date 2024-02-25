@@ -1,7 +1,9 @@
 name: JClans
 version: '${project.version}'
 main: jcn.jclan.JClans
+author: The_JCN
 api-version: '1.20'
+description: JClans - simple clan system for your minecraft server.
 softdepend:
   - PlaceholderApi
   - LuckPerms
@@ -18,3 +20,6 @@ commands:
     description: Отклонить заявку в клан
   c:
     description: Клановый чат
+permissions:
+  clan.creator:
+    default: not op

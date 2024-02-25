@@ -207,8 +207,10 @@ public class GuiCommand {
 
     private void AnvilGuiReName(Player player){
         AnvilGUI.Builder builder = new AnvilGUI.Builder();
+        DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+        String clanNameOld = databaseMethods.getClanName(player);
         builder.title("Имя клана");
-        builder.text("Укажите новое название клана");
+        builder.text(clanNameOld);
         builder.plugin(plugin);
         builder.onClick((slot, stateSnapshot) -> {
             if (slot != AnvilGUI.Slot.OUTPUT) {
@@ -230,8 +232,10 @@ public class GuiCommand {
 
     public void AnvilGuiReTag(Player player) {
         AnvilGUI.Builder builder = new AnvilGUI.Builder();
+        DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+        String prefixOld = databaseMethods.getClanPrefix(player);
         builder.title("Префикс клана");
-        builder.text("Укажите новый префикс клана");
+        builder.text(prefixOld);
         builder.plugin(plugin);
         builder.onClick((slot, stateSnapshot) -> {
             if (slot != AnvilGUI.Slot.OUTPUT) {
@@ -241,9 +245,8 @@ public class GuiCommand {
                 String newName = stateSnapshot.getText();
                 String prefix = ChatColor.translateAlternateColorCodes('&', newName);
                 if(lengthWithoutColor(prefix) == 2) {
-                    DatabaseMethods dataBase = new DatabaseMethods(connection);
                     player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Новый префикс клана: " + prefix);
-                    dataBase.updatePrefixByClanName(dataBase.getClanName(player), prefix);
+                    databaseMethods.updatePrefixByClanName(databaseMethods.getClanName(player), prefix);
                     return Arrays.asList(AnvilGUI.ResponseAction.close());
                 }
                 else {

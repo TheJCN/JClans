@@ -65,7 +65,12 @@ public class MainCommand implements CommandExecutor {
 
             case "list":
                 ClanListCommand clanListCommand = new ClanListCommand(connection);
-                clanListCommand.ClanList(player);
+                if (strings.length < 2) {
+                    clanListCommand.ClanList(player, 1);
+                }
+                else {
+                    clanListCommand.ClanList(player, Integer.parseInt(strings[1]));
+                }
                 break;
 
             case "delete":

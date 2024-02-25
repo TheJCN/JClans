@@ -24,7 +24,7 @@ public class ClanChat implements CommandExecutor {
         DatabaseMethods databaseMethods = new DatabaseMethods(connection);
         List<String> clanMembers = databaseMethods.getClanMembers(databaseMethods.getClanName(player));
         String clanPrefix = databaseMethods.getClanPrefix(player);
-        String message = getMessage(strings, clanPrefix);
+        String message = getMessage(strings, clanPrefix, player.getName());
         for (String member : clanMembers){
             Player memberPlayer = Bukkit.getPlayer(member);
             if (memberPlayer != null && memberPlayer.isOnline()){
@@ -34,13 +34,13 @@ public class ClanChat implements CommandExecutor {
         return false;
     }
 
-    private String getMessage(String[] strings, String clanPrefix){
+    private String getMessage(String[] strings, String clanPrefix, String sender){
         StringBuilder message = new StringBuilder();
 
         for (int i = 0; i < strings.length; i++) {
             message.append(strings[i] + " ");
         }
-        String prefix = "[" + clanPrefix + ChatColor.RESET +"]";
+        String prefix = "[" + clanPrefix + ChatColor.RESET +"] " + sender + ":";
         return prefix + " " + message.toString();
     }
 }

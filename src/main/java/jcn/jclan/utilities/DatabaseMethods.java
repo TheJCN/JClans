@@ -2,6 +2,7 @@ package jcn.jclan.utilities;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.units.qual.A;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,25 +47,33 @@ public class DatabaseMethods {
     }
 
     // Получение списка всех кланов и краткой информации о них
-    public String getClansList() {
-        StringBuilder info = new StringBuilder();
+    public List<String> getClansList() {
+        List<String> clansInfo = new ArrayList<>();
+        int i = 1;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT clanname AS ClanName, members AS Members, clanprefix AS Prefix FROM clans;");
+            PreparedStatement statement = connection.prepareStatement("SELECT clanname AS ClanName, members AS Members, clanprefix AS Prefix, clancreator AS ClanCreator FROM clans;");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+                StringBuilder info = new StringBuilder();
                 String clanName = resultSet.getString("ClanName");
                 String members = resultSet.getString("Members");
                 String prefix = resultSet.getString("Prefix");
+                String clanCreator = resultSet.getString("ClanCreator");
                 int valueOfMembers = members.split(", ").length;
 
-                info.append(ChatColor.RESET).append("Название: ").append(clanName).append("\n");
+                info.append(ChatColor.RESET).append(i +". Название: ").append(clanName).append("\n");
                 info.append(ChatColor.RESET).append("Префикс: ").append(prefix).append("\n");
+                info.append(ChatColor.RESET).append("Создатель: ").append(clanCreator).append("\n");
                 info.append(ChatColor.RESET).append("Количество участников: ").append(valueOfMembers).append("\n");
-                info.append("\n");
+                info.append(ChatColor.GOLD).append("--------------------------------------").append(ChatColor.RESET);
+                i++;
+
+                clansInfo.add(info.toString());
+
             }
             statement.close();
         } catch (Exception e) { e.printStackTrace(); }
-        return info.toString();
+        return clansInfo;
     }
 
     // Получение информации об одном клане

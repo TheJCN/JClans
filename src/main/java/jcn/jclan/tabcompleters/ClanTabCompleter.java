@@ -27,10 +27,17 @@ public class ClanTabCompleter implements TabCompleter {
                 completions.add("list");
                 completions.add("delete");
             } else if (strings.length == 2) {
+                if (strings[0].equalsIgnoreCase("create")){
+                    completions.clear();
+                    completions.add("имя клана");
+                    return completions;
+                }
                 if (strings[0].equalsIgnoreCase("kick") || strings[0].equalsIgnoreCase("invite")) {
+                    completions.clear();
                     for (String playerName : getAllOnlinePlayerNames()) {
                         completions.add(playerName);
                     }
+                    return completions;
                 }
             }
         }

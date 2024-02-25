@@ -24,19 +24,24 @@ public class CreateClanCommand {
             return;
         }
 
-        if (strings.length < 3) {
-            player.damage(1);
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Ошибка! Название клана должно состоять из 2х слов!");
-            return;
-        }
-
         if (player.hasPermission("clan.member")) {
             player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Ошибка! Вы уже находитесь в клане.");
             return;
         }
 
+        if (strings[1].length() < 2){
+            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Ошибка! Название клана должно содержать хотя бы 2 символа.");
+            return;
+        }
 
-        String clanname = strings[1] + " " + strings[2];
+        String clanname = null;
+        if (strings.length == 2){
+            clanname = strings[1];
+        }
+
+        if (strings.length > 2){
+            clanname = strings[1] + " " + strings[2];
+        }
         DatabaseMethods databaseMethods = new DatabaseMethods(connection);
 
         if (databaseMethods.checkClanName(clanname)) {
@@ -57,11 +62,19 @@ public class CreateClanCommand {
     }
 
     private String createClanPrefix(String[] strings){
-        char char1 = strings[1].charAt(0);
-        char char2 = strings[2].charAt(0);
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(char1);
-        stringBuilder.append(char2);
+        if (strings.length == 2) {
+            char char1 = strings[1].charAt(0);
+            char char2 = strings[1].charAt(1);
+            stringBuilder.append(char1);
+            stringBuilder.append(char2);
+        }
+        else {
+            char char1 = strings[1].charAt(0);
+            char char2 = strings[2].charAt(0);
+            stringBuilder.append(char1);
+            stringBuilder.append(char2);
+        }
         return stringBuilder.toString();
     }
 

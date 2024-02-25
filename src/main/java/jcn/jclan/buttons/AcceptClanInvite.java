@@ -35,7 +35,7 @@ public class AcceptClanInvite implements CommandExecutor {
             LuckPermsPlugin lp = new LuckPermsPlugin(luckPerms);
             lp.addPermission(player, "clan.member");
             databaseMethods.addMemberToClan(player, clanName);
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + "Вы успешно приняли заявку в клан " + clanName);
+            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Вы успешно приняли заявку в клан " + clanName);
         }
         return false;
     }
