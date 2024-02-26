@@ -138,11 +138,11 @@ public class DatabaseMethods {
     // Получение префикса клана
     @SneakyThrows
     public String getClanPrefix(Player player){
-        PreparedStatement statement = connection.prepareStatement("SELECT clanprefix FROM clans WHERE FIND_IN_SET(?, REPLACE(members, ' ', '')) > 0");
-        statement.setString(1, player.getName());
+        PreparedStatement statement = connection.prepareStatement("SELECT clanprefix FROM clans WHERE members LIKE ?");
+        statement.setString(1, "%"+player.getName()+"%");
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) return resultSet.getString("clanprefix");
-        return null;
+        return "";
     }
 
     // Проверка имени клана

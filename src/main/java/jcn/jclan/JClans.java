@@ -49,9 +49,8 @@ public final class JClans extends JavaPlugin {
         }
 
         Statement statement = connection.createStatement();
-        statement.executeUpdate("CREATE TABLE IF NOT EXISTS clans (id INTEGER PRIMARY KEY AUTO_INCREMENT, clancreator VARCHAR(255), idclan VARCHAR(255), clanname VARCHAR(255), clanprefix VARCHAR(255), members VARCHAR(255))");
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS clans (id INTEGER PRIMARY KEY AUTOINCREMENT, clancreator VARCHAR(255), idclan VARCHAR(255), clanname VARCHAR(255), clanprefix VARCHAR(255), members VARCHAR(255))");
         statement.close();
-
 
         if (!setupLuckPerms()) {
             logger.severe("LuckPerms не найден или не активирован. Плагин будет отключен.");
@@ -90,11 +89,13 @@ public final class JClans extends JavaPlugin {
         String database = getConfig().getString("mysql.database");
         String username = getConfig().getString("mysql.username");
         String password = getConfig().getString("mysql.password");
+        String databaseType = getConfig().getString("database.type");
 
-        DatabaseManager databaseManager = new DatabaseManager(host, port, database, username, password);
+        DatabaseManager databaseManager = new DatabaseManager(host, port, database, username, password, databaseType, this);
         connection = databaseManager.getConnection();
         return databaseManager.connect();
     }
+
 
     private boolean setupLuckPerms() {
         RegisteredServiceProvider<LuckPerms> provider = getServer().getServicesManager().getRegistration(LuckPerms.class);

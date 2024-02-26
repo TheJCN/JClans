@@ -1,7 +1,10 @@
-# Конфигурационный файл для подключения к MySQL
+# Конфигурационный файл для подключения плагина к базе данных
+# Виды поддерживаемых баз данных: sqlite / mysql
+database:
+  type: sqlite
 mysql:
   host: your-mysql-host
   port: 3306
-  database: your-mysql-database
+  database: JClans-DataBase
   username: your-mysql-username
   password: your-mysql-password
