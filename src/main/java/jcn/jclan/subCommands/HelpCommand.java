@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 import java.sql.Connection;
 
-import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
+import static jcn.jclan.utilities.PluginVocab.*;
 
 public class HelpCommand {
     private final Connection connection;
@@ -17,15 +17,15 @@ public class HelpCommand {
     public void sendHelpMessage(Player player){
         DatabaseMethods databaseMethods = new DatabaseMethods(connection);
         String prefix = databaseMethods.getClanPrefix(player);
-        player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Список всех команд плагина JClan для " + ChatColor.GOLD +  player.getName() + ChatColor.RESET + " [" + prefix + ChatColor.RESET + "]");
-        player.sendMessage(ChatColor.GOLD  + "---------------------------------------");
-        player.sendMessage(ChatColor.RESET + "/clan create - Команда для создания клана.");
-        player.sendMessage(ChatColor.RESET + "/clan invite - Команда для приглашения игрока в клан.");
-        player.sendMessage(ChatColor.RESET + "/clan leave - Команда для выхода из клана.");
-        player.sendMessage(ChatColor.RESET + "/clan kick - Команда для удаления игрока из клана.");
-        player.sendMessage(ChatColor.RESET + "/clan gui - Меню клана.");
-        player.sendMessage(ChatColor.RESET + "/clan list - Список всех кланов.");
-        player.sendMessage(ChatColor.RESET + "/clan delete - Удаление своего клана.");
-        player.sendMessage(ChatColor.GOLD  + "---------------------------------------");
+        player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + LIST_OF_ALL_PLUGIN_COMMANDS + ChatColor.GOLD +  player.getName() + ChatColor.RESET + " [" + prefix + ChatColor.RESET + "]");
+        player.sendMessage(ChatColor.GOLD  + LINE_SEPARATOR);
+        player.sendMessage(ChatColor.RESET + COMMAND_CREATE);
+        player.sendMessage(ChatColor.RESET + COMMAND_INVITE);
+        player.sendMessage(ChatColor.RESET + COMMAND_LEAVE);
+        player.sendMessage(ChatColor.RESET + COMMAND_KICK);
+        player.sendMessage(ChatColor.RESET + COMMAND_GUI);
+        player.sendMessage(ChatColor.RESET + COMMAND_LIST);
+        player.sendMessage(ChatColor.RESET + COMMAND_DELETE);
+        player.sendMessage(ChatColor.GOLD  + LINE_SEPARATOR);
     }
 }

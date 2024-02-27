@@ -8,7 +8,7 @@ import jcn.jclan.utilities.DatabaseMethods;
 
 import java.sql.Connection;
 
-import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
+import static jcn.jclan.utilities.PluginVocab.*;
 
 public class LeaveCommand {
     private final Connection connection;
@@ -19,18 +19,18 @@ public class LeaveCommand {
     }
 
     public void leave(Player player) {
-        if (player.hasPermission("clan.creator")) {
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Вы не можете покинуть свой клан, только удалить его");
+        if (player.hasPermission(CLAN_CREATOR_PERMISSION)) {
+            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RED + YOU_CAN_NOT_LEAVE_YOUR_CLAN);
             return;
         }
-        if (player.hasPermission("clan.member")) {
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Вы покинули клан");
+        if (player.hasPermission(CLAN_MEMBER_PERMISSION)) {
+            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + LEFT_THE_CLAN);
             LuckPermsPlugin lp = new LuckPermsPlugin(luckPerms);
             DatabaseMethods databaseMethods = new DatabaseMethods(connection);
-            lp.removePermission(player, "clan.member");
+            lp.removePermission(player, CLAN_MEMBER_PERMISSION);
             databaseMethods.removeMemberFromClan(player);
         } else {
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Вы не находитесь в клане");
+            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RED + YOU_DO_NOT_IN_CLAN);
         }
     }
 }

@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
+import static jcn.jclan.utilities.PluginVocab.*;
 
 public class InviteClanCommand {
     private final Connection connection;
@@ -37,27 +37,27 @@ public class InviteClanCommand {
     }
 
     public void sendInvite(Player player, String[] strings){
-        if (!player.hasPermission("clan.creator") && !player.hasPermission("clan.member")){
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Вы должны находиться в клане и быть его главой, что бы приглашать игроков");
+        if (!player.hasPermission(CLAN_CREATOR_PERMISSION) && !player.hasPermission(CLAN_MEMBER_PERMISSION)){
+            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RED + YOU_NEED_TO_BE_CLAN_CREATOR_TO_INVITE_ERROR);
             return;
         }
         String targetName = strings[1];
         Player targetPlayer = Bukkit.getPlayer(targetName);
 
         if (targetPlayer == null || !targetPlayer.isOnline()){
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Игрок с именем " + targetName + " не найден или не в сети.");
+            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RED + String.format(PLAYER_NOT_FOUND_ERROR, targetName));
             return;
         }
 
-        if (targetPlayer.hasPermission("clan.member")) {
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Игрок с именем " + targetName + " уже состоит в другом клане.");
+        if (targetPlayer.hasPermission(CLAN_MEMBER_PERMISSION)) {
+            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RED + String.format(PLAYER_IN_ANOTHER_CLAN, targetName));
             return;
         }
 
         DatabaseMethods databaseMethods = new DatabaseMethods(connection);
         String clanName = databaseMethods.getClanName(player);
         sendButtons(targetPlayer, clanName);
-        player.sendMessage((ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Вы отправили приглашение " + targetPlayer.getName()));
+        player.sendMessage((ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + String.format(SEND_INVITE_PLAYER, targetName)));
         pendingInvites.put(targetPlayer, clanName);
 
         new BukkitRunnable() {
@@ -69,11 +69,11 @@ public class InviteClanCommand {
     }
 
     private void sendButtons(Player targetPlayer, String clanName){
-        Component confirmButton = Component.text("Принять").clickEvent(ClickEvent.runCommand("/accept_invite_in_clan")).color(TextColor.color(0, 204, 0));
-        Component cancelButton = Component.text("Отклонить").clickEvent(ClickEvent.runCommand("/decline_invite_in_clan")).color(TextColor.color(255, 0, 0));
+        Component confirmButton = Component.text(ACCEPT).clickEvent(ClickEvent.runCommand("/accept_invite_in_clan")).color(TextColor.color(0, 204, 0));
+        Component cancelButton = Component.text(DECLINE).clickEvent(ClickEvent.runCommand("/decline_invite_in_clan")).color(TextColor.color(255, 0, 0));
         Component message = Component.text()
-                .append(Component.text(PLUGINPREFIX).color(NamedTextColor.GOLD))
-                .append(Component.text(" Вас пригласили в клан " + clanName).color(TextColor.color(255, 255, 255)))
+                .append(Component.text(PLUGIN_PREFIX).color(NamedTextColor.GOLD))
+                .append(Component.text(String.format(INVITE_IN_CLAN, clanName)).color(TextColor.color(255, 255, 255)))
                 .append(Component.newline())
                 .append(confirmButton)
                 .append(Component.text(" "))

@@ -10,7 +10,7 @@ import jcn.jclan.utilities.DatabaseMethods;
 
 import java.sql.Connection;
 
-import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
+import static jcn.jclan.utilities.PluginVocab.*;
 
 public class DeleteClanCommand {
     private final Connection connection;
@@ -19,14 +19,14 @@ public class DeleteClanCommand {
     }
 
     public void DeleteClan(Player player){
-        if (!(player.hasPermission("clan.creator"))) return;
+        if (!(player.hasPermission(CLAN_CREATOR_PERMISSION))) return;
         DatabaseMethods databaseMethods = new DatabaseMethods(connection);
         String clanName = databaseMethods.getClanName(player);
-        Component confirmButton = Component.text("Удалить").clickEvent(ClickEvent.runCommand("/accept_delete_clan")).color(TextColor.color(255, 0, 0));
-        Component cancelButton = Component.text("Оставить").clickEvent(ClickEvent.runCommand("/decline_delete_clan")).color(TextColor.color(0, 204, 0));
+        Component confirmButton = Component.text(DELETE).clickEvent(ClickEvent.runCommand("/accept_delete_clan")).color(TextColor.color(255, 0, 0));
+        Component cancelButton = Component.text(KEEP).clickEvent(ClickEvent.runCommand("/decline_delete_clan")).color(TextColor.color(0, 204, 0));
         Component message = Component.text()
-                .append(Component.text(PLUGINPREFIX).color(NamedTextColor.GOLD))
-                .append(Component.text(" Вы хотите удалить клан \"" + clanName + "\"?").color(TextColor.color(255, 255, 255)))
+                .append(Component.text(PLUGIN_PREFIX).color(NamedTextColor.GOLD))
+                .append(Component.text(String.format(DO_YOU_WANT_DELETE_CLAN, clanName)).color(TextColor.color(255, 255, 255)))
                 .append(Component.newline())
                 .append(confirmButton)
                 .append(Component.text(" "))

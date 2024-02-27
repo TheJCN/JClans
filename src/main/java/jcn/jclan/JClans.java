@@ -20,7 +20,7 @@ import java.sql.Statement;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
+import static jcn.jclan.utilities.PluginVocab.PLUGIN_PREFIX;
 
 public final class JClans extends JavaPlugin {
     private Connection connection;
@@ -31,7 +31,7 @@ public final class JClans extends JavaPlugin {
     @Override
     public void onEnable() {
         logger = Bukkit.getLogger();
-        logger.info(PLUGINPREFIX + " запущен");
+        logger.info(PLUGIN_PREFIX + " запущен");
 
         File dataFolder = getDataFolder();
         if (!dataFolder.exists()){
@@ -77,7 +77,7 @@ public final class JClans extends JavaPlugin {
     @SneakyThrows
     @Override
     public void onDisable() {
-        logger.info(PLUGINPREFIX + " Отключен");
+        logger.info(PLUGIN_PREFIX + " Отключен");
         if (connection != null) {
                 connection.close();
         }

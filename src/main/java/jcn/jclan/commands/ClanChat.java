@@ -12,6 +12,8 @@ import jcn.jclan.utilities.DatabaseMethods;
 import java.sql.Connection;
 import java.util.List;
 
+import static jcn.jclan.utilities.PluginVocab.CLAN_MEMBER_PERMISSION;
+
 public class ClanChat implements CommandExecutor {
     private final Connection connection;
     public ClanChat(Connection connection){
@@ -20,7 +22,7 @@ public class ClanChat implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         Player player = (Player) commandSender;
-        if (!player.hasPermission("clan.member")) return false;
+        if (!player.hasPermission(CLAN_MEMBER_PERMISSION)) return false;
         DatabaseMethods databaseMethods = new DatabaseMethods(connection);
         List<String> clanMembers = databaseMethods.getClanMembers(databaseMethods.getClanName(player));
         String clanPrefix = databaseMethods.getClanPrefix(player);

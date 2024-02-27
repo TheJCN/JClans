@@ -8,3 +8,5 @@ mysql:
   database: JClans-DataBase
   username: your-mysql-username
   password: your-mysql-password
+
+

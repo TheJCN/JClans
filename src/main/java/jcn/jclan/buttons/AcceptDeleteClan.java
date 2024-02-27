@@ -15,7 +15,7 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Objects;
 
-import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
+import static jcn.jclan.utilities.PluginVocab.*;
 
 public class AcceptDeleteClan implements CommandExecutor {
     private final Connection connection;
@@ -33,15 +33,15 @@ public class AcceptDeleteClan implements CommandExecutor {
             List<String> clanMembers = databaseMethods.getClanMembers(databaseMethods.getClanName(player));
             for (String member : clanMembers){
                 Player memberPlayer = Bukkit.getPlayer(member);
-                lp.removePermission(Objects.requireNonNull(memberPlayer), "clan.member");
+                lp.removePermission(Objects.requireNonNull(memberPlayer), CLAN_MEMBER_PERMISSION);
                 if (memberPlayer.isOnline()){
-                    memberPlayer.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Вы были удаленны из клана, так как создатель удалил его");
+                    memberPlayer.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + CLAN_KICK_MESSAGE_AFTER_DELETE);
                 }
             }
             databaseMethods.deleteClan(databaseMethods.getClanName(player));
-            lp.removePermission(player, "clan.creator");
-            lp.removePermission(player, "clan.member");
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Клан удален");
+            lp.removePermission(player, CLAN_CREATOR_PERMISSION);
+            lp.removePermission(player, CLAN_MEMBER_PERMISSION);
+            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + CLAN_ACCEPT_DELETE_MESSAGE);
         }
         return false;
     }

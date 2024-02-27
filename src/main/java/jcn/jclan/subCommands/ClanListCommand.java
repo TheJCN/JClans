@@ -7,7 +7,7 @@ import jcn.jclan.utilities.DatabaseMethods;
 import java.sql.Connection;
 import java.util.List;
 
-import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
+import static jcn.jclan.utilities.PluginVocab.*;
 
 public class ClanListCommand {
     private final Connection connection;
@@ -22,15 +22,15 @@ public class ClanListCommand {
         int clansPerPage = 3;
         int countPages = (int) Math.ceil((double) allClans.size() / clansPerPage);
         if (pageNumber <= 0 || pageNumber > countPages) {
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Ошибка! Неизвестная страница");
+            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RED + UNKNOWN_PAGE_MESSAGE);
             return;
         }
 
         int startClanIndex = (pageNumber - 1) * clansPerPage;
         int endClanIndex = Math.min(startClanIndex + clansPerPage, allClans.size());
 
-        player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Список всех кланов (Страница " + pageNumber + "/" + countPages + ")");
-        player.sendMessage(ChatColor.GOLD + "--------------------------------------");
+        player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + String.format(LIST_OF_ALL_CLANS_MESSAGE, pageNumber, countPages));
+        player.sendMessage(ChatColor.GOLD + LINE_SEPARATOR);
 
         for (int i = startClanIndex; i < endClanIndex; i++) {
             player.sendMessage(allClans.get(i));

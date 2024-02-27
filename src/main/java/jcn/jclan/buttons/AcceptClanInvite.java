@@ -14,8 +14,7 @@ import jcn.jclan.utilities.DatabaseMethods;
 import java.sql.Connection;
 import java.util.Map;
 
-import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
-
+import static jcn.jclan.utilities.PluginVocab.*;
 public class AcceptClanInvite implements CommandExecutor {
     private final Connection connection;
     private final LuckPerms luckPerms;
@@ -33,9 +32,9 @@ public class AcceptClanInvite implements CommandExecutor {
         if (clanName != null){
             DatabaseMethods databaseMethods = new DatabaseMethods(connection);
             LuckPermsPlugin lp = new LuckPermsPlugin(luckPerms);
-            lp.addPermission(player, "clan.member");
+            lp.addPermission(player, CLAN_MEMBER_PERMISSION);
             databaseMethods.addMemberToClan(player, clanName);
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Вы успешно приняли заявку в клан " + clanName);
+            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + ACCEPT_CLAN_INVITE_MESSAGE + clanName);
         }
         return false;
     }

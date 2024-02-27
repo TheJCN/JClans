@@ -13,7 +13,7 @@ import jcn.jclan.subCommands.*;
 
 import java.sql.Connection;
 
-import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
+import static jcn.jclan.utilities.PluginVocab.*;
 
 public class MainCommand implements CommandExecutor {
     private final Connection connection;
@@ -31,13 +31,13 @@ public class MainCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         Player player = (Player) commandSender;
         if (strings.length == 0) {
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Неизвестная команд! Для просмотра всех команд используйте: /clan help!");
+            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RED + UNKNOWN_CLAN_COMMAND);
             return false;
         }
         switch (strings[0]) {
             case "invite":
                 if (strings.length < 2) {
-                    player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Использование: /clan invite (ник игрока)");
+                    player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RED + USAGE_CLAN_INVITE_COMMAND);
                     return true;
                 }
                 InviteClanCommand inviteAcceptCommand = new InviteClanCommand(connection, luckPerms, plugin);
@@ -46,7 +46,7 @@ public class MainCommand implements CommandExecutor {
 
             case "kick":
                 if (strings.length < 2) {
-                    player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Использование: /clan kick (ник игрока)");
+                    player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RED + USAGE_CLAN_INVITE_COMMAND);
                     return true;
                 }
                 KickCommand kickCommand = new KickCommand(connection, luckPerms);
@@ -89,7 +89,7 @@ public class MainCommand implements CommandExecutor {
                 break;
 
             default:
-                player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RED + " Неизвестная команд! Для просмотра всех команд используйте: /clan help!");
+                player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RED + UNKNOWN_CLAN_COMMAND);
         }
         return false;
     }

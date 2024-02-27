@@ -10,7 +10,7 @@ import jcn.jclan.subCommands.InviteClanCommand;
 
 import java.util.Map;
 
-import static jcn.jclan.utilities.PluginVocab.PLUGINPREFIX;
+import static jcn.jclan.utilities.PluginVocab.*;
 
 public class DeclineClanInvite implements CommandExecutor {
     private final InviteClanCommand handler;
@@ -21,9 +21,9 @@ public class DeclineClanInvite implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         Player player = (Player) commandSender;
         Map<Player, String> invitesList= handler.getPendingInvites();
-        String clanName = invitesList.get(player);
-        if (clanName != null){
-            player.sendMessage(ChatColor.GOLD + PLUGINPREFIX + ChatColor.RESET + " Вы отклонили заявку на вступление в " + clanName);
+            String clanName = invitesList.get(player);
+            if (clanName != null){
+            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + CLAN_DECLINE_INVITE_MESSAGE + clanName);
         }
         return false;
     }
