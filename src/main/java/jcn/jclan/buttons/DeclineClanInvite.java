@@ -1,5 +1,6 @@
 package jcn.jclan.buttons;
 
+import jcn.jclan.utilities.PluginVocab;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,12 +11,12 @@ import jcn.jclan.subCommands.InviteClanCommand;
 
 import java.util.Map;
 
-import static jcn.jclan.utilities.PluginVocab.*;
-
 public class DeclineClanInvite implements CommandExecutor {
     private final InviteClanCommand handler;
-    public DeclineClanInvite(InviteClanCommand handler){
+    private final PluginVocab vocabulary;
+    public DeclineClanInvite(InviteClanCommand handler, PluginVocab vocabulary){
         this.handler = handler;
+        this.vocabulary = vocabulary;
     }
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
@@ -23,7 +24,7 @@ public class DeclineClanInvite implements CommandExecutor {
         Map<Player, String> invitesList= handler.getPendingInvites();
             String clanName = invitesList.get(player);
             if (clanName != null){
-            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + CLAN_DECLINE_INVITE_MESSAGE + clanName);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + vocabulary.CLAN_DECLINE_INVITE_MESSAGE + clanName);
         }
         return false;
     }

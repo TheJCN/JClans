@@ -1,5 +1,6 @@
 package jcn.jclan.buttons;
 
+import jcn.jclan.utilities.PluginVocab;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,14 +16,14 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Objects;
 
-import static jcn.jclan.utilities.PluginVocab.*;
-
 public class AcceptDeleteClan implements CommandExecutor {
     private final Connection connection;
     private final LuckPerms luckPerms;
-    public AcceptDeleteClan(Connection connection, LuckPerms luckPerms){
+    private final PluginVocab vocabulary;
+    public AcceptDeleteClan(Connection connection, LuckPerms luckPerms, PluginVocab vocabulary){
         this.connection = connection;
         this.luckPerms = luckPerms;
+        this.vocabulary = vocabulary;
     }
 
     @Override
@@ -33,15 +34,15 @@ public class AcceptDeleteClan implements CommandExecutor {
             List<String> clanMembers = databaseMethods.getClanMembers(databaseMethods.getClanName(player));
             for (String member : clanMembers){
                 Player memberPlayer = Bukkit.getPlayer(member);
-                lp.removePermission(Objects.requireNonNull(memberPlayer), CLAN_MEMBER_PERMISSION);
+                lp.removePermission(Objects.requireNonNull(memberPlayer), vocabulary.CLAN_MEMBER_PERMISSION);
                 if (memberPlayer.isOnline()){
-                    memberPlayer.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + CLAN_KICK_MESSAGE_AFTER_DELETE);
+                    memberPlayer.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + vocabulary.CLAN_KICK_MESSAGE_AFTER_DELETE);
                 }
             }
             databaseMethods.deleteClan(databaseMethods.getClanName(player));
-            lp.removePermission(player, CLAN_CREATOR_PERMISSION);
-            lp.removePermission(player, CLAN_MEMBER_PERMISSION);
-            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + CLAN_ACCEPT_DELETE_MESSAGE);
+            lp.removePermission(player, vocabulary.CLAN_CREATOR_PERMISSION);
+            lp.removePermission(player, vocabulary.CLAN_MEMBER_PERMISSION);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + vocabulary.CLAN_ACCEPT_DELETE_MESSAGE);
         }
         return false;
     }

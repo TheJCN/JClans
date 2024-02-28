@@ -1,9 +1,12 @@
 package jcn.jclan;
 
+import jcn.jclan.utilities.PluginVocab;
 import lombok.SneakyThrows;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import jcn.jclan.buttons.AcceptDeleteClan;
@@ -20,27 +23,33 @@ import java.sql.Statement;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import static jcn.jclan.utilities.PluginVocab.PLUGIN_PREFIX;
-
 public final class JClans extends JavaPlugin {
     private Connection connection;
     private LuckPerms luckPerms;
-    private Logger logger;
+    private Logger logger = Bukkit.getLogger();
+    private PluginVocab vocabulary;
 
     @SneakyThrows
     @Override
     public void onEnable() {
-        logger = Bukkit.getLogger();
-        logger.info(PLUGIN_PREFIX + " запущен");
-
         File dataFolder = getDataFolder();
         if (!dataFolder.exists()){
             if (!dataFolder.mkdir()){
-                logger.info("Не удалось загрузить конфиг попробуйте снова");
+                logger.info("Не удалось загрузить папку плагина");
             }
         }
 
-        saveDefaultConfig();
+        File configFile = new File(getDataFolder(), "config.yml");
+        if (!configFile.exists()) {
+            saveDefaultConfig();
+        }
+
+        String lang = getConfig().getString("language");
+        saveResource("ru_ru.yml", false);
+        saveResource("en_us.yml", false);
+        FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(new File(getDataFolder(), lang + ".yml"));
+        logger.info(fileConfiguration.getString("123"));
+        PluginVocab vocabulary = new PluginVocab(fileConfiguration);
 
         if (!setupDatabase()) {
             logger.severe("Не удалось подключиться к базе данных. Плагин будет отключен.");
@@ -60,27 +69,27 @@ public final class JClans extends JavaPlugin {
 
         NamespacedKey key = new NamespacedKey(this, "BestClan");
 
-        Objects.requireNonNull(getCommand("clan")).setExecutor(new MainCommand(connection, luckPerms, this, key));
+        Objects.requireNonNull(getCommand("clan")).setExecutor(new MainCommand(connection, luckPerms, this, key, vocabulary));
         Objects.requireNonNull(getCommand("clan")).setTabCompleter(new ClanTabCompleter());
 
-        Objects.requireNonNull(getCommand("accept_delete_clan")).setExecutor(new AcceptDeleteClan(connection, luckPerms));
-        Objects.requireNonNull(getCommand("decline_delete_clan")).setExecutor(new DeclineDeleteClan());
+        Objects.requireNonNull(getCommand("accept_delete_clan")).setExecutor(new AcceptDeleteClan(connection, luckPerms, vocabulary));
+        Objects.requireNonNull(getCommand("decline_delete_clan")).setExecutor(new DeclineDeleteClan(vocabulary));
 
-        Objects.requireNonNull(getCommand("c")).setExecutor(new ClanChat(connection));
+        Objects.requireNonNull(getCommand("c")).setExecutor(new ClanChat(connection, vocabulary));
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderApi") != null) {
             new PlaceholderApiPlugin(connection).register();
         }
+
+        logger = Bukkit.getLogger();
+        logger.info(vocabulary.PLUGIN_PREFIX + " запущен");
 
     }
 
     @SneakyThrows
     @Override
     public void onDisable() {
-        logger.info(PLUGIN_PREFIX + " Отключен");
-        if (connection != null) {
-                connection.close();
-        }
+        if (connection != null) {connection.close();}
     }
 
     private boolean setupDatabase(){

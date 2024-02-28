@@ -1,121 +1,151 @@
 package jcn.jclan.utilities;
 
+import org.bukkit.configuration.file.FileConfiguration;
+
 public class PluginVocab {
-    // Префикс плагина
-    public static final String PLUGIN_PREFIX = "[JClan]";
+    private final FileConfiguration fileConfiguration;
+    public String PLUGIN_PREFIX;
+    public String CLAN_MEMBER_PERMISSION;
+    public String CLAN_CREATOR_PERMISSION;
+    public String ACCEPT_CLAN_INVITE_MESSAGE;
+    public String CLAN_ACCEPT_DELETE_MESSAGE;
+    public String UNKNOWN_CLAN_COMMAND;
+    public String USAGE_CLAN_INVITE_COMMAND;
+    public String LIST_OF_ALL_PLUGIN_COMMANDS;
+    public String CLAN_KICK_MESSAGE_AFTER_DELETE;
+    public String CLAN_DECLINE_INVITE_MESSAGE;
+    public String CLAN_DECLINE_DELETE_MESSAGE;
+    public String UNKNOWN_PAGE_MESSAGE;
+    public String LIST_OF_ALL_CLANS_MESSAGE;
+    public String DO_YOU_WANT_DELETE_CLAN;
+    public String DO_NOT_HAVE_PERMISSION_TO_CREATE_CLAN;
+    public String WE_ALREADY_IN_CLAN_ERROR;
+    public String NEED_MINIMUM_TWO_SYMBOLS_ERROR;
+    public String CLAN_NAME_ALREADY_USE_ERROR;
+    public String CLAN_CREATE_SUCCESSFUL_MESSAGE;
+    public String CLAN_NAME_IS_MESSAGE;
+    public String CLAN_PREFIX_IS_MESSAGE;
+    public String COMMAND_LEAVE;
+    public String COMMAND_CREATE;
+    public String COMMAND_INVITE;
+    public String COMMAND_KICK;
+    public String COMMAND_GUI;
+    public String COMMAND_LIST;
+    public String COMMAND_DELETE;
+    public String YOU_NEED_TO_BE_CLAN_CREATOR_TO_INVITE_ERROR;
+    public String PLAYER_NOT_FOUND_ERROR;
+    public String PLAYER_IN_ANOTHER_CLAN;
+    public String SEND_INVITE_PLAYER;
+    public String ACCEPT;
+    public String DECLINE;
+    public String INVITE_IN_CLAN;
+    public String YOU_NEED_TO_BE_CLAN_CREATOR_TO_KICK_ERROR;
+    public String YOU_CAN_NOT_KICK_YOURSELF;
+    public String PLAYER_IS_NOT_IN_YOUR_CLAN;
+    public String YOU_CAN_NOT_LEAVE_YOUR_CLAN;
+    public String LEFT_THE_CLAN;
+    public String YOU_DO_NOT_IN_CLAN;
+    public String DELETE;
+    public String KEEP;
+    public String KICK_PLAYER_FROM_CLAN;
+    public String LINE_SEPARATOR;
+    public String GUI_MESSAGE_NO_PERMISSION;
+    public String GUI_MESSAGE_INFO_TITLE;
+    public String GUI_MESSAGE_INFO_TITLE_SETTING;
+    public String GUI_MESSAGE_NAME_BUTTON;
+    public String GUI_MESSAGE_STATISTIC_BUTTON;
+    public String GUI_MESSAGE_SETTING_BUTTON;
+    public String GUI_MESSAGE_MEMBERS_TITLE_PREFIX;
+    public String GUI_MESSAGE_MEMBERS_BUTTON;
+    public String GUI_MESSAGE_SETTING_NAME_TAG;
+    public String GUI_MESSAGE_SETTING_BOOK;
+    public String GUI_MESSAGE_SETTING_CHANGE_NAME;
+    public String GUI_MESSAGE_SETTING_CHANGE_PREFIX;
+    public String GUI_MESSAGE_SETTING_ONLY_LEADER_NAME;
+    public String GUI_MESSAGE_SETTING_ONLY_LEADER_PREFIX;
+    public String GUI_MESSAGE_SETTING_PREFIX_LENGTH_ERROR;
+    public String NAME;
+    public String PREFIX;
+    public String CREATOR;
+    public String MEMBERS;
+    public String CLICK_TO_OPEN_CLAN_SETTINGS;
+    public String CLICK_TO_CHANGE_CLAN_NAME;
+    public String CLICK_TO_CHANGE_CLAN_PREFIX;
+    public String TRY_AGAIN;
 
-    // Разрешения для участников и создателя клана
-    public static final String CLAN_MEMBER_PERMISSION = "clan.member";
-    public static final String CLAN_CREATOR_PERMISSION = "clan.creator";
+    public PluginVocab(FileConfiguration fileConfiguration) {
+        this.fileConfiguration = fileConfiguration;
+        initializeFields();
+    }
 
-    // Сообщения об успешном принятии заявки и удалении клана
-    public static final String ACCEPT_CLAN_INVITE_MESSAGE = " Вы успешно приняли заявку в клан ";
-    public static final String CLAN_ACCEPT_DELETE_MESSAGE = " Клан удален";
-
-    // Сообщение об ошибке при неизвестной команде
-    public static final String UNKNOWN_CLAN_COMMAND = " Неизвестная команда! Для просмотра всех команд используйте: /clan help!";
-
-    // Использование команды приглашения в клан
-    public static final String USAGE_CLAN_INVITE_COMMAND = " Использование: /clan invite (ник игрока)";
-
-    // Список всех команд плагина
-    public static final String LIST_OF_ALL_PLUGIN_COMMANDS = " Список всех команд плагина JClan для ";
-
-    // Сообщение об удалении из клана после удаления клана
-    public static final String CLAN_KICK_MESSAGE_AFTER_DELETE = " Вы были удалены из клана, так как создатель удалил его";
-
-    // Сообщения об отклонении заявки и оставлении клана
-    public static final String CLAN_DECLINE_INVITE_MESSAGE = " Вы отклонили заявку на вступление в ";
-    public static final String CLAN_DECLINE_DELETE_MESSAGE = " Вы решили оставить клан";
-
-    // Сообщение об ошибке неизвестной страницы
-    public static final String UNKNOWN_PAGE_MESSAGE = " Ошибка! Неизвестная страница";
-
-    // Сообщение со списком всех кланов
-    public static final String LIST_OF_ALL_CLANS_MESSAGE = " Список всех кланов (Страница %s / %s )";
-
-    // Сообщение о подтверждении удаления клана
-    public static final String DO_YOU_WANT_DELETE_CLAN = " Вы действительно хотите удалить клан %s?";
-
-    // Сообщение об ошибке отсутствия прав для создания клана
-    public static final String DO_NOT_HAVE_PERMISSION_TO_CREATE_CLAN = " Ошибка! У вас недостаточно прав для создания кланов. Обратитесь в тикет, если хотите создать клан.";
-
-    // Сообщения об ошибках при создании клана
-    public static final String WE_ALREADY_IN_CLAN_ERROR = " Ошибка! Вы уже находитесь в клане.";
-    public static final String NEED_MINIMUM_TWO_SYMBOLS_ERROR = " Ошибка! Название клана должно содержать хотя бы 2 символа.";
-    public static final String CLAN_NAME_ALREADY_USE_ERROR = " Ошибка! Клан с таким названием уже существует.";
-
-    // Сообщение об успешном создании клана
-    public static final String CLAN_CREATE_SUCCESSFUL_MESSAGE = " Клан успешно создан!";
-
-    // Сообщения с информацией о клане
-    public static final String CLAN_NAME_IS_MESSAGE = " Название клана: ";
-    public static final String CLAN_PREFIX_IS_MESSAGE = " Префикс клана: ";
-
-    // Команды для управления кланом
-    public static final String COMMAND_LEAVE = "/clan leave - Команда для выхода из клана.";
-    public static final String COMMAND_CREATE = "/clan create - Команда для создания клана.";
-    public static final String COMMAND_INVITE = "/clan invite - Команда для приглашения игрока в клан.";
-    public static final String COMMAND_KICK = "/clan kick - Команда для удаления игрока из клана.";
-    public static final String COMMAND_GUI = "/clan gui - Меню клана.";
-    public static final String COMMAND_LIST = "/clan list - Список всех кланов.";
-    public static final String COMMAND_DELETE = "/clan delete - Удаление своего клана.";
-
-    // Сообщения об ошибках при приглашении игрока
-    public static final String YOU_NEED_TO_BE_CLAN_CREATOR_TO_INVITE_ERROR = " Вы должны находиться в клане и быть его главой, чтобы приглашать игроков";
-    public static final String PLAYER_NOT_FOUND_ERROR = " Игрок с именем %s не найден или не в сети.";
-    public static final String PLAYER_IN_ANOTHER_CLAN = " Игрок с именем %s уже состоит в другом клане.";
-
-    // Сообщения об успешном приглашении и кнопках для подтверждения/отклонения
-    public static final String SEND_INVITE_PLAYER = " Вы отправили приглашение %s ";
-    public static final String ACCEPT = "Принять";
-    public static final String DECLINE = "Отклонить";
-    public static final String INVITE_IN_CLAN = " Вас пригласили в клан %s";
-
-    // Сообщения об ошибках при исключении игрока
-    public static final String YOU_NEED_TO_BE_CLAN_CREATOR_TO_KICK_ERROR = " Вы должны находиться в клане и быть его главой, чтобы исключать игроков";
-    public static final String YOU_CAN_NOT_KICK_YOURSELF = " Вы не можете исключить самого себя";
-    public static final String PLAYER_IS_NOT_IN_YOUR_CLAN = " Игрок с именем %s не является участником вашего клана.";
-
-    // Сообщения о невозможности покинуть клан и об успешном выходе
-    public static final String YOU_CAN_NOT_LEAVE_YOUR_CLAN = " Вы не можете покинуть свой клан, только удалить его";
-    public static final String LEFT_THE_CLAN = " Вы покинули клан";
-
-    // Сообщение об отсутствии участия в клане
-    public static final String YOU_DO_NOT_IN_CLAN = " Вы не находитесь в клане";
-
-    // Кнопки для подтверждения/отмены при удалении клана
-    public static final String DELETE = "Удалить";
-    public static final String KEEP = "Оставить";
-
-    // Сообщение об успешном исключении игрока из клана
-    public static final String KICK_PLAYER_FROM_CLAN = " Игрок с именем %s успешно исключен из клана.";
-
-    // Разделительная линия для форматирования вывода
-    public static final String LINE_SEPARATOR = "---------------------------------------";
-
-    // Сообщения для GuiCommand
-    public static final String GUI_MESSAGE_NO_PERMISSION = " Вы должны быть участником клана, чтобы открыть меню клана!";
-    public static final String GUI_MESSAGE_INFO_TITLE = "Меню клана";
-    public static final String GUI_MESSAGE_INFO_TITLE_SETTING = "Настройки клана";
-    public static final String GUI_MESSAGE_NAME_BUTTON = "Информация";
-    public static final String GUI_MESSAGE_STATISTIC_BUTTON = "Участники";
-    public static final String GUI_MESSAGE_SETTING_BUTTON = "Настройки";
-    public static final String GUI_MESSAGE_MEMBERS_TITLE_PREFIX = "Участники клана ";
-    public static final String GUI_MESSAGE_MEMBERS_BUTTON = "Нажмите, чтобы посмотреть список";
-    public static final String GUI_MESSAGE_SETTING_NAME_TAG = "Префикс клана";
-    public static final String GUI_MESSAGE_SETTING_BOOK = "Название клана";
-    public static final String GUI_MESSAGE_SETTING_CHANGE_NAME = " Новое название клана: ";
-    public static final String GUI_MESSAGE_SETTING_CHANGE_PREFIX = " Новый префикс клана: ";
-    public static final String GUI_MESSAGE_SETTING_ONLY_LEADER_NAME = " Изменять названия клана может только глава клана";
-    public static final String GUI_MESSAGE_SETTING_ONLY_LEADER_PREFIX = " Изменять префикс клана может только глава клана";
-    public static final String GUI_MESSAGE_SETTING_PREFIX_LENGTH_ERROR = " Префикс должен состоять из 2х символов";
-    public static final String NAME = "Название: ";
-    public static final String PREFIX = "Префикс: ";
-    public static final String CREATOR = "Создатель: ";
-    public static final String MEMBERS = "Участники: ";
-    public static final String CLICK_TO_OPEN_CLAN_SETTINGS = "Нажмите, чтобы открыть настройки клана";
-    public static final String CLICK_TO_CHANGE_CLAN_NAME = "Нажмите, чтобы изменить название клана";
-    public static final String CLICK_TO_CHANGE_CLAN_PREFIX = "Нажмите, чтобы изменить префикс клана";
-    public static final String TRY_AGAIN = "Попробуйте еще раз";
+    private void initializeFields() {
+        PLUGIN_PREFIX = "[JClans]";
+        CLAN_MEMBER_PERMISSION = "clan.member";
+        CLAN_CREATOR_PERMISSION = "clan.creator";
+        ACCEPT_CLAN_INVITE_MESSAGE = fileConfiguration.getString("accept-clan-invite-message");
+        CLAN_ACCEPT_DELETE_MESSAGE = fileConfiguration.getString("clan-accept-delete-message");
+        UNKNOWN_CLAN_COMMAND = fileConfiguration.getString("unknown-clan-command");
+        USAGE_CLAN_INVITE_COMMAND = fileConfiguration.getString("usage-clan-invite-command");
+        LIST_OF_ALL_PLUGIN_COMMANDS = fileConfiguration.getString("list-of-all-plugin-commands");
+        CLAN_KICK_MESSAGE_AFTER_DELETE = fileConfiguration.getString("clan-kick-message-after-delete");
+        CLAN_DECLINE_INVITE_MESSAGE = fileConfiguration.getString("clan-decline-invite-message");
+        CLAN_DECLINE_DELETE_MESSAGE = fileConfiguration.getString("clan-decline-delete-message");
+        UNKNOWN_PAGE_MESSAGE = fileConfiguration.getString("unknown-page-message");
+        LIST_OF_ALL_CLANS_MESSAGE = fileConfiguration.getString("list-of-all-clans-message");
+        DO_YOU_WANT_DELETE_CLAN = fileConfiguration.getString("do-you-want-delete-clan");
+        DO_NOT_HAVE_PERMISSION_TO_CREATE_CLAN = fileConfiguration.getString("do-not-have-permission-to-create-clan");
+        WE_ALREADY_IN_CLAN_ERROR = fileConfiguration.getString("we-already-in-clan-error");
+        NEED_MINIMUM_TWO_SYMBOLS_ERROR = fileConfiguration.getString("need-minimum-two-symbols-error");
+        CLAN_NAME_ALREADY_USE_ERROR = fileConfiguration.getString("clan-name-already-use-error");
+        CLAN_CREATE_SUCCESSFUL_MESSAGE = fileConfiguration.getString("clan-create-successful-message");
+        CLAN_NAME_IS_MESSAGE = fileConfiguration.getString("clan-name-is-message");
+        CLAN_PREFIX_IS_MESSAGE = fileConfiguration.getString("clan-prefix-is-message");
+        COMMAND_LEAVE = fileConfiguration.getString("command-leave");
+        COMMAND_CREATE = fileConfiguration.getString("command-create");
+        COMMAND_INVITE = fileConfiguration.getString("command-invite");
+        COMMAND_KICK = fileConfiguration.getString("command-kick");
+        COMMAND_GUI = fileConfiguration.getString("command-gui");
+        COMMAND_LIST = fileConfiguration.getString("command-list");
+        COMMAND_DELETE = fileConfiguration.getString("command-delete");
+        YOU_NEED_TO_BE_CLAN_CREATOR_TO_INVITE_ERROR = fileConfiguration.getString("you-need-to-be-clan-creator-to-invite-error");
+        PLAYER_NOT_FOUND_ERROR = fileConfiguration.getString("player-not-found-error");
+        PLAYER_IN_ANOTHER_CLAN = fileConfiguration.getString("player-in-another-clan");
+        SEND_INVITE_PLAYER = fileConfiguration.getString("send-invite-player");
+        ACCEPT = fileConfiguration.getString("accept");
+        DECLINE = fileConfiguration.getString("decline");
+        INVITE_IN_CLAN = fileConfiguration.getString("invite-in-clan");
+        YOU_NEED_TO_BE_CLAN_CREATOR_TO_KICK_ERROR = fileConfiguration.getString("you-need-to-be-clan-creator-to-kick-error");
+        YOU_CAN_NOT_KICK_YOURSELF = fileConfiguration.getString("you-can-not-kick-yourself");
+        PLAYER_IS_NOT_IN_YOUR_CLAN = fileConfiguration.getString("player-is-not-in-your-clan");
+        YOU_CAN_NOT_LEAVE_YOUR_CLAN = fileConfiguration.getString("you-can-not-leave-your-clan");
+        LEFT_THE_CLAN = fileConfiguration.getString("left-the-clan");
+        YOU_DO_NOT_IN_CLAN = fileConfiguration.getString("you-do-not-in-clan");
+        DELETE = fileConfiguration.getString("delete");
+        KEEP = fileConfiguration.getString("keep");
+        KICK_PLAYER_FROM_CLAN = fileConfiguration.getString("kick-player-from-clan");
+        LINE_SEPARATOR = fileConfiguration.getString("line-separator");
+        GUI_MESSAGE_NO_PERMISSION = fileConfiguration.getString("gui-message-no-permission");
+        GUI_MESSAGE_INFO_TITLE = fileConfiguration.getString("gui-message-info-title");
+        GUI_MESSAGE_INFO_TITLE_SETTING = fileConfiguration.getString("gui-message-info-title-setting");
+        GUI_MESSAGE_NAME_BUTTON = fileConfiguration.getString("gui-message-name-button");
+        GUI_MESSAGE_STATISTIC_BUTTON = fileConfiguration.getString("gui-message-statistic-button");
+        GUI_MESSAGE_SETTING_BUTTON = fileConfiguration.getString("gui-message-setting-button");
+        GUI_MESSAGE_MEMBERS_TITLE_PREFIX = fileConfiguration.getString("gui-message-members-title-prefix");
+        GUI_MESSAGE_MEMBERS_BUTTON = fileConfiguration.getString("gui-message-members-button");
+        GUI_MESSAGE_SETTING_NAME_TAG = fileConfiguration.getString("gui-message-setting-name-tag");
+        GUI_MESSAGE_SETTING_BOOK = fileConfiguration.getString("gui-message-setting-book");
+        GUI_MESSAGE_SETTING_CHANGE_NAME = fileConfiguration.getString("gui-message-setting-change-name");
+        GUI_MESSAGE_SETTING_CHANGE_PREFIX = fileConfiguration.getString("gui-message-setting-change-prefix");
+        GUI_MESSAGE_SETTING_ONLY_LEADER_NAME = fileConfiguration.getString("gui-message-setting-only-leader-name");
+        GUI_MESSAGE_SETTING_ONLY_LEADER_PREFIX = fileConfiguration.getString("gui-message-setting-only-leader-prefix");
+        GUI_MESSAGE_SETTING_PREFIX_LENGTH_ERROR = fileConfiguration.getString("gui-message-setting-prefix-length-error");
+        NAME = fileConfiguration.getString("name");
+        PREFIX = fileConfiguration.getString("prefix");
+        CREATOR = fileConfiguration.getString("creator");
+        MEMBERS = fileConfiguration.getString("members");
+        CLICK_TO_OPEN_CLAN_SETTINGS = fileConfiguration.getString("click-to-open-clan-settings");
+        CLICK_TO_CHANGE_CLAN_NAME = fileConfiguration.getString("click-to-change-clan-name");
+        CLICK_TO_CHANGE_CLAN_PREFIX = fileConfiguration.getString("click-to-change-clan-prefix");
+        TRY_AGAIN = fileConfiguration.getString("try-again");
+    }
 }

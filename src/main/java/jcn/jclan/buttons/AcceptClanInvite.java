@@ -1,5 +1,6 @@
 package jcn.jclan.buttons;
 
+import jcn.jclan.utilities.PluginVocab;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -14,15 +15,16 @@ import jcn.jclan.utilities.DatabaseMethods;
 import java.sql.Connection;
 import java.util.Map;
 
-import static jcn.jclan.utilities.PluginVocab.*;
 public class AcceptClanInvite implements CommandExecutor {
     private final Connection connection;
     private final LuckPerms luckPerms;
     private final InviteClanCommand handler;
-    public AcceptClanInvite(Connection connection, LuckPerms luckPerms, InviteClanCommand handler){
+    private final PluginVocab vocabulary;
+    public AcceptClanInvite(Connection connection, LuckPerms luckPerms, InviteClanCommand handler, PluginVocab vocabulary){
         this.connection = connection;
         this.luckPerms = luckPerms;
         this.handler = handler;
+        this.vocabulary = vocabulary;
     }
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
@@ -32,9 +34,9 @@ public class AcceptClanInvite implements CommandExecutor {
         if (clanName != null){
             DatabaseMethods databaseMethods = new DatabaseMethods(connection);
             LuckPermsPlugin lp = new LuckPermsPlugin(luckPerms);
-            lp.addPermission(player, CLAN_MEMBER_PERMISSION);
+            lp.addPermission(player, vocabulary.CLAN_MEMBER_PERMISSION);
             databaseMethods.addMemberToClan(player, clanName);
-            player.sendMessage(ChatColor.GOLD + PLUGIN_PREFIX + ChatColor.RESET + ACCEPT_CLAN_INVITE_MESSAGE + clanName);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + vocabulary.ACCEPT_CLAN_INVITE_MESSAGE + clanName);
         }
         return false;
     }

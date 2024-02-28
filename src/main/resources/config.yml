@@ -1,5 +1,6 @@
 # Конфигурационный файл для подключения плагина к базе данных
 # Виды поддерживаемых баз данных: sqlite / mysql
+language: ru_ru
 database:
   type: sqlite
 mysql:
