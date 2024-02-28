@@ -24,7 +24,7 @@ public class DeclineClanInvite implements CommandExecutor {
         Map<Player, String> invitesList= handler.getPendingInvites();
             String clanName = invitesList.get(player);
             if (clanName != null){
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + vocabulary.CLAN_DECLINE_INVITE_MESSAGE + clanName);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RESET + vocabulary.CLAN_DECLINE_INVITE_MESSAGE + " " + clanName);
         }
         return false;
     }

@@ -16,7 +16,7 @@ public class DeclineDeleteClan implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player){
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + vocabulary.CLAN_DECLINE_DELETE_MESSAGE);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RESET + vocabulary.CLAN_DECLINE_DELETE_MESSAGE);
         }
         return false;
     }

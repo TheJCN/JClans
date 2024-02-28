@@ -22,7 +22,7 @@ public class KickCommand {
 
     public void kickMember(Player player, String[] strings){
         if (!player.hasPermission(vocabulary.CLAN_CREATOR_PERMISSION) && !player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)){
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED + vocabulary.YOU_NEED_TO_BE_CLAN_CREATOR_TO_KICK_ERROR);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.YOU_NEED_TO_BE_CLAN_CREATOR_TO_KICK_ERROR);
             return;
         }
 
@@ -30,12 +30,12 @@ public class KickCommand {
         Player targetPlayer = Bukkit.getServer().getPlayer(targetPlayerName);
 
         if (targetPlayer == null || !targetPlayer.isOnline()) {
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED  + String.format(vocabulary.PLAYER_NOT_FOUND_ERROR, targetPlayerName));
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED  + String.format(vocabulary.PLAYER_NOT_FOUND_ERROR, targetPlayerName));
             return;
         }
 
         if (targetPlayer.getName().equals(player.getName())){
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED  + vocabulary.YOU_CAN_NOT_KICK_YOURSELF);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED  + vocabulary.YOU_CAN_NOT_KICK_YOURSELF);
             return;
         }
 
@@ -45,12 +45,12 @@ public class KickCommand {
         String clanNameTarget = databaseMethods.getClanName(targetPlayer);
 
         if (!clanName.equals(clanNameTarget)){
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED  + String.format(vocabulary.PLAYER_IS_NOT_IN_YOUR_CLAN, targetPlayerName));
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED  + String.format(vocabulary.PLAYER_IS_NOT_IN_YOUR_CLAN, targetPlayerName));
             return;
         }
 
         if (databaseMethods.removeMemberFromClan(targetPlayer)) {
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + String.format(vocabulary.KICK_PLAYER_FROM_CLAN, targetPlayerName));
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RESET + String.format(vocabulary.KICK_PLAYER_FROM_CLAN, targetPlayerName));
             LuckPermsPlugin lp = new LuckPermsPlugin(luckPerms);
             lp.removePermission(targetPlayer, vocabulary.CLAN_MEMBER_PERMISSION);
         }

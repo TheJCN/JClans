@@ -118,10 +118,35 @@ public class DatabaseMethods {
     // Добавление участника в клан
     @SneakyThrows
     public void addMemberToClan(Player player, String clanName) {
-        PreparedStatement statement = connection.prepareStatement("UPDATE clans SET members = CONCAT(members, ?) WHERE clanname = ?");
-        statement.setString(1, ", " + player.getName());
-        statement.setString(2, clanName);
+        // Проверяем, не является ли строка "members" пустой
+        String separator = "";
+        String currentMembers = getCurrentMembers(clanName);
+
+        // Если уже есть члены в клане, добавляем разделитель
+        if (!currentMembers.isEmpty()) {
+            separator = ", ";
+        }
+
+        // Обновляем запись в базе данных
+        PreparedStatement statement = connection.prepareStatement("UPDATE clans SET members = ? || ? WHERE clanname = ?");
+        statement.setString(1, currentMembers + separator);
+        statement.setString(2, player.getName());
+        statement.setString(3, clanName);
         statement.executeUpdate();
+    }
+
+    // Получаем строку уже имеющихся игроков в клане
+    @SneakyThrows
+    private String getCurrentMembers(String clanName) {
+        PreparedStatement statement = connection.prepareStatement("SELECT members FROM clans WHERE clanname = ?");
+        statement.setString(1, clanName);
+        ResultSet resultSet = statement.executeQuery();
+        // Проверяем, есть ли результат
+        if (resultSet.next()) {
+            return resultSet.getString("members");
+        }
+        // Если что-то пошло не так, возвращаем пустую строку
+        return "";
     }
 
     // Удаление участника в клан

@@ -20,13 +20,14 @@ public class DeleteClanCommand {
     }
 
     public void DeleteClan(Player player){
-        if (!(player.hasPermission(vocabulary.CLAN_CREATOR_PERMISSION))) return;
+        if (!player.hasPermission(vocabulary.CLAN_CREATOR_PERMISSION) && !player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)){return;}
         DatabaseMethods databaseMethods = new DatabaseMethods(connection);
         String clanName = databaseMethods.getClanName(player);
         Component confirmButton = Component.text(vocabulary.DELETE).clickEvent(ClickEvent.runCommand("/accept_delete_clan")).color(TextColor.color(255, 0, 0));
         Component cancelButton = Component.text(vocabulary.KEEP).clickEvent(ClickEvent.runCommand("/decline_delete_clan")).color(TextColor.color(0, 204, 0));
         Component message = Component.text()
                 .append(Component.text(vocabulary.PLUGIN_PREFIX).color(NamedTextColor.GOLD))
+                .append(Component.text(" "))
                 .append(Component.text(String.format(vocabulary.DO_YOU_WANT_DELETE_CLAN, clanName)).color(TextColor.color(255, 255, 255)))
                 .append(Component.newline())
                 .append(confirmButton)

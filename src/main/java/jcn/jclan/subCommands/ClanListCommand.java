@@ -23,14 +23,14 @@ public class ClanListCommand {
         int clansPerPage = 3;
         int countPages = (int) Math.ceil((double) allClans.size() / clansPerPage);
         if (pageNumber <= 0 || pageNumber > countPages) {
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED + vocabulary.UNKNOWN_PAGE_MESSAGE);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED + " " + vocabulary.UNKNOWN_PAGE_MESSAGE);
             return;
         }
 
         int startClanIndex = (pageNumber - 1) * clansPerPage;
         int endClanIndex = Math.min(startClanIndex + clansPerPage, allClans.size());
 
-        player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + String.format(vocabulary.LIST_OF_ALL_CLANS_MESSAGE, pageNumber, countPages));
+        player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RESET + String.format(vocabulary.LIST_OF_ALL_CLANS_MESSAGE, pageNumber, countPages));
         player.sendMessage(ChatColor.GOLD + vocabulary.LINE_SEPARATOR);
 
         for (int i = startClanIndex; i < endClanIndex; i++) {

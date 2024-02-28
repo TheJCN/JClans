@@ -36,13 +36,13 @@ public class AcceptDeleteClan implements CommandExecutor {
                 Player memberPlayer = Bukkit.getPlayer(member);
                 lp.removePermission(Objects.requireNonNull(memberPlayer), vocabulary.CLAN_MEMBER_PERMISSION);
                 if (memberPlayer.isOnline()){
-                    memberPlayer.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + vocabulary.CLAN_KICK_MESSAGE_AFTER_DELETE);
+                    memberPlayer.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RESET + vocabulary.CLAN_KICK_MESSAGE_AFTER_DELETE);
                 }
             }
             databaseMethods.deleteClan(databaseMethods.getClanName(player));
             lp.removePermission(player, vocabulary.CLAN_CREATOR_PERMISSION);
             lp.removePermission(player, vocabulary.CLAN_MEMBER_PERMISSION);
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + vocabulary.CLAN_ACCEPT_DELETE_MESSAGE);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RESET + vocabulary.CLAN_ACCEPT_DELETE_MESSAGE);
         }
         return false;
     }

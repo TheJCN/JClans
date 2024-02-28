@@ -32,13 +32,13 @@ public class MainCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         Player player = (Player) commandSender;
         if (strings.length == 0) {
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED + vocabulary.UNKNOWN_CLAN_COMMAND);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " +  ChatColor.RED + vocabulary.UNKNOWN_CLAN_COMMAND);
             return false;
         }
         switch (strings[0]) {
             case "invite":
                 if (strings.length < 2) {
-                    player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED + vocabulary.USAGE_CLAN_INVITE_COMMAND);
+                    player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.USAGE_CLAN_INVITE_COMMAND);
                     return true;
                 }
                 InviteClanCommand inviteAcceptCommand = new InviteClanCommand(connection, luckPerms, plugin, vocabulary);
@@ -47,7 +47,7 @@ public class MainCommand implements CommandExecutor {
 
             case "kick":
                 if (strings.length < 2) {
-                    player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED + vocabulary.USAGE_CLAN_INVITE_COMMAND);
+                    player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.USAGE_CLAN_INVITE_COMMAND);
                     return true;
                 }
                 KickCommand kickCommand = new KickCommand(connection, luckPerms, vocabulary);
@@ -90,7 +90,7 @@ public class MainCommand implements CommandExecutor {
                 break;
 
             default:
-                player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED + vocabulary.UNKNOWN_CLAN_COMMAND);
+                player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.UNKNOWN_CLAN_COMMAND);
         }
         return false;
     }

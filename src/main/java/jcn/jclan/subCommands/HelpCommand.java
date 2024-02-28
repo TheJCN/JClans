@@ -18,7 +18,7 @@ public class HelpCommand {
     public void sendHelpMessage(Player player){
         DatabaseMethods databaseMethods = new DatabaseMethods(connection);
         String prefix = databaseMethods.getClanPrefix(player);
-        player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + vocabulary.LIST_OF_ALL_PLUGIN_COMMANDS + ChatColor.GOLD +  player.getName() + ChatColor.RESET + " [" + prefix + ChatColor.RESET + "]");
+        player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RESET + vocabulary.LIST_OF_ALL_PLUGIN_COMMANDS + " " + ChatColor.GOLD +  player.getName() + ChatColor.RESET + " [" + prefix + ChatColor.RESET + "]");
         player.sendMessage(ChatColor.GOLD  + vocabulary.LINE_SEPARATOR);
         player.sendMessage(ChatColor.RESET + vocabulary.COMMAND_CREATE);
         player.sendMessage(ChatColor.RESET + vocabulary.COMMAND_INVITE);

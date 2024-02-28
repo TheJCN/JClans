@@ -38,7 +38,7 @@ public class GuiCommand {
 
     public void openGui(Player player){
         if (!player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)){
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED + vocabulary.GUI_MESSAGE_NO_PERMISSION);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.GUI_MESSAGE_NO_PERMISSION);
             return;
         }
         InventoryClick inventoryClick = new InventoryClick(key, this);

@@ -21,17 +21,17 @@ public class LeaveCommand {
 
     public void leave(Player player) {
         if (player.hasPermission(vocabulary.CLAN_CREATOR_PERMISSION)) {
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED + vocabulary.YOU_CAN_NOT_LEAVE_YOUR_CLAN);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.YOU_CAN_NOT_LEAVE_YOUR_CLAN);
             return;
         }
         if (player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)) {
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + vocabulary.LEFT_THE_CLAN);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RESET + vocabulary.LEFT_THE_CLAN);
             LuckPermsPlugin lp = new LuckPermsPlugin(luckPerms);
             DatabaseMethods databaseMethods = new DatabaseMethods(connection);
             lp.removePermission(player, vocabulary.CLAN_MEMBER_PERMISSION);
             databaseMethods.removeMemberFromClan(player);
         } else {
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED + vocabulary.YOU_DO_NOT_IN_CLAN);
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.YOU_DO_NOT_IN_CLAN);
         }
     }
 }
