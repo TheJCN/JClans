@@ -18,7 +18,7 @@ public class ClanListCommand {
     }
 
     public void ClanList(Player player, int pageNumber) {
-        DatabaseMethods dataBase = new DatabaseMethods(connection);
+        DatabaseMethods dataBase = new DatabaseMethods(connection, vocabulary);
         List<String> allClans = dataBase.getClansList();
         int clansPerPage = 3;
         int countPages = (int) Math.ceil((double) allClans.size() / clansPerPage);

@@ -6,6 +6,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import jcn.jclan.utilities.DatabaseMethods;
 
@@ -20,8 +21,11 @@ public class DeleteClanCommand {
     }
 
     public void DeleteClan(Player player){
-        if (!player.hasPermission(vocabulary.CLAN_CREATOR_PERMISSION) && !player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)){return;}
-        DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+        if (!player.hasPermission(vocabulary.CLAN_CREATOR_PERMISSION) || !player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)) {
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.YOU_NEED_TO_BE_CLAN_CREATOR_TO_DELETE_ERROR);
+            return;
+        }
+        DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
         String clanName = databaseMethods.getClanName(player);
         Component confirmButton = Component.text(vocabulary.DELETE).clickEvent(ClickEvent.runCommand("/accept_delete_clan")).color(TextColor.color(255, 0, 0));
         Component cancelButton = Component.text(vocabulary.KEEP).clickEvent(ClickEvent.runCommand("/decline_delete_clan")).color(TextColor.color(0, 204, 0));

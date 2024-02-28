@@ -43,7 +43,7 @@ public class CreateClanCommand {
         if (strings.length > 2){
             clanname = strings[1] + " " + strings[2];
         }
-        DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+        DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
 
         if (databaseMethods.checkClanName(clanname)) {
             player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RED + " " + vocabulary.CLAN_NAME_ALREADY_USE_ERROR);

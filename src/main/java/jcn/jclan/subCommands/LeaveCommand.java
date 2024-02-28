@@ -27,7 +27,7 @@ public class LeaveCommand {
         if (player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)) {
             player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RESET + vocabulary.LEFT_THE_CLAN);
             LuckPermsPlugin lp = new LuckPermsPlugin(luckPerms);
-            DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+            DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
             lp.removePermission(player, vocabulary.CLAN_MEMBER_PERMISSION);
             databaseMethods.removeMemberFromClan(player);
         } else {

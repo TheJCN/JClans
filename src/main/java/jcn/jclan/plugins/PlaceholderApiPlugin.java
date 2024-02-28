@@ -1,5 +1,6 @@
 package jcn.jclan.plugins;
 
+import jcn.jclan.utilities.PluginVocab;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -11,8 +12,10 @@ import java.util.Objects;
 
 public class PlaceholderApiPlugin extends PlaceholderExpansion {
     private final Connection connection;
-    public PlaceholderApiPlugin(Connection connection){
+    private final PluginVocab vocabulary;
+    public PlaceholderApiPlugin(Connection connection, PluginVocab vocabulary){
         this.connection = connection;
+        this.vocabulary = vocabulary;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class PlaceholderApiPlugin extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer player, String params) {
         if (params.equalsIgnoreCase("prefix")) {
             String playerName = player.getName();
-            String clanPrefix = String.valueOf(new DatabaseMethods(connection).getClanPrefix(Objects.requireNonNull(Bukkit.getPlayer(Objects.requireNonNull(playerName)))));
+            String clanPrefix = String.valueOf(new DatabaseMethods(connection, vocabulary).getClanPrefix(Objects.requireNonNull(Bukkit.getPlayer(Objects.requireNonNull(playerName)))));
             if (!clanPrefix.isEmpty()) {
                 return "&r[" + clanPrefix.toUpperCase() + "&r]";
             } else {

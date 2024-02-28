@@ -32,7 +32,7 @@ public class AcceptClanInvite implements CommandExecutor {
         Map<Player, String> invitesList= handler.getPendingInvites();
         String clanName = invitesList.get(player);
         if (clanName != null){
-            DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+            DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
             LuckPermsPlugin lp = new LuckPermsPlugin(luckPerms);
             lp.addPermission(player, vocabulary.CLAN_MEMBER_PERMISSION);
             databaseMethods.addMemberToClan(player, clanName);

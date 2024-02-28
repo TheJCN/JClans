@@ -5,8 +5,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class PluginVocab {
     private final FileConfiguration fileConfiguration;
     public String PLUGIN_PREFIX;
-    public String CLAN_MEMBER_PERMISSION;
-    public String CLAN_CREATOR_PERMISSION;
+    public String CLAN_MEMBER_PERMISSION = "clan.member";
+    public String CLAN_CREATOR_PERMISSION = "clan.creator";
     public String ACCEPT_CLAN_INVITE_MESSAGE;
     public String CLAN_ACCEPT_DELETE_MESSAGE;
     public String UNKNOWN_CLAN_COMMAND;
@@ -40,6 +40,7 @@ public class PluginVocab {
     public String DECLINE;
     public String INVITE_IN_CLAN;
     public String YOU_NEED_TO_BE_CLAN_CREATOR_TO_KICK_ERROR;
+    public String YOU_NEED_TO_BE_CLAN_CREATOR_TO_DELETE_ERROR;
     public String YOU_CAN_NOT_KICK_YOURSELF;
     public String PLAYER_IS_NOT_IN_YOUR_CLAN;
     public String YOU_CAN_NOT_LEAVE_YOUR_CLAN;
@@ -72,6 +73,7 @@ public class PluginVocab {
     public String CLICK_TO_CHANGE_CLAN_NAME;
     public String CLICK_TO_CHANGE_CLAN_PREFIX;
     public String TRY_AGAIN;
+    public String COUNT_MEMBERS;
 
     public PluginVocab(FileConfiguration fileConfiguration) {
         this.fileConfiguration = fileConfiguration;
@@ -80,8 +82,6 @@ public class PluginVocab {
 
     private void initializeFields() {
         PLUGIN_PREFIX = "[JClans]";
-        CLAN_MEMBER_PERMISSION = "clan.member";
-        CLAN_CREATOR_PERMISSION = "clan.creator";
         ACCEPT_CLAN_INVITE_MESSAGE = fileConfiguration.getString("accept-clan-invite-message");
         CLAN_ACCEPT_DELETE_MESSAGE = fileConfiguration.getString("clan-accept-delete-message");
         UNKNOWN_CLAN_COMMAND = fileConfiguration.getString("unknown-clan-command");
@@ -147,5 +147,7 @@ public class PluginVocab {
         CLICK_TO_CHANGE_CLAN_NAME = fileConfiguration.getString("click-to-change-clan-name");
         CLICK_TO_CHANGE_CLAN_PREFIX = fileConfiguration.getString("click-to-change-clan-prefix");
         TRY_AGAIN = fileConfiguration.getString("try-again");
+        YOU_NEED_TO_BE_CLAN_CREATOR_TO_DELETE_ERROR = fileConfiguration.getString("you-need-to-be-clan-creator-do-delete-error");
+        COUNT_MEMBERS = fileConfiguration.getString("count-members");
     }
 }

@@ -24,7 +24,7 @@ public class ClanChat implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         Player player = (Player) commandSender;
         if (!player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)) return false;
-        DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+        DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
         List<String> clanMembers = databaseMethods.getClanMembers(databaseMethods.getClanName(player));
         String clanPrefix = databaseMethods.getClanPrefix(player);
         String message = getMessage(strings, clanPrefix, player.getName());

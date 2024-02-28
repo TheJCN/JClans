@@ -21,7 +21,7 @@ public class KickCommand {
     }
 
     public void kickMember(Player player, String[] strings){
-        if (!player.hasPermission(vocabulary.CLAN_CREATOR_PERMISSION) && !player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)){
+        if (!player.hasPermission(vocabulary.CLAN_CREATOR_PERMISSION) || !player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)){
             player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.YOU_NEED_TO_BE_CLAN_CREATOR_TO_KICK_ERROR);
             return;
         }
@@ -39,7 +39,7 @@ public class KickCommand {
             return;
         }
 
-        DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+        DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
 
         String clanName = databaseMethods.getClanName(player);
         String clanNameTarget = databaseMethods.getClanName(targetPlayer);

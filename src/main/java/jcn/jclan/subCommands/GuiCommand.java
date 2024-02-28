@@ -37,13 +37,14 @@ public class GuiCommand {
     }
 
     public void openGui(Player player){
-        if (!player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)){
-            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.GUI_MESSAGE_NO_PERMISSION);
-            return;
+        if (player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)){
+            InventoryClick inventoryClick = new InventoryClick(key, this);
+            Bukkit.getServer().getPluginManager().registerEvents(inventoryClick, plugin);
+            player.openInventory(createGui(player));
         }
-        InventoryClick inventoryClick = new InventoryClick(key, this);
-        Bukkit.getServer().getPluginManager().registerEvents(inventoryClick, plugin);
-        player.openInventory(createGui(player));
+        else {
+            player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.GUI_MESSAGE_NO_PERMISSION);
+        }
     }
 
     private Inventory createGui(Player player){
@@ -63,7 +64,7 @@ public class GuiCommand {
         ItemMeta nameButtonItemMeta = nameButton.getItemMeta();
         Objects.requireNonNull(nameButtonItemMeta).setCustomModelData(555);
         nameButtonItemMeta.setDisplayName(ChatColor.AQUA + vocabulary.GUI_MESSAGE_NAME_BUTTON);
-        DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+        DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
 
         List<String> clanInfo = databaseMethods.getClanInfo(player);
         List<String> membersList = Arrays.asList(clanInfo.get(3).split(", "));
@@ -143,7 +144,7 @@ public class GuiCommand {
     }
 
     private void openMembersInventory(Player player){
-        DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+        DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
         List<String> clanInfo = databaseMethods.getClanInfo(player);
         List<String> membersList = Arrays.asList(clanInfo.get(3).split(", "));
         player.openInventory(createMembersListInventory(player, clanInfo.get(0), membersList));
@@ -205,7 +206,7 @@ public class GuiCommand {
 
     private void AnvilGuiReName(Player player){
         AnvilGUI.Builder builder = new AnvilGUI.Builder();
-        DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+        DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
         String clanNameOld = databaseMethods.getClanName(player);
         builder.title(vocabulary.GUI_MESSAGE_SETTING_BOOK);
         builder.text(clanNameOld);
@@ -217,7 +218,7 @@ public class GuiCommand {
             if (!stateSnapshot.getText().isEmpty()) {
                 String newName = stateSnapshot.getText();
                 String name = ChatColor.translateAlternateColorCodes('&', newName);
-                DatabaseMethods dataBase = new DatabaseMethods(connection);
+                DatabaseMethods dataBase = new DatabaseMethods(connection, vocabulary);
                 player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + ChatColor.RESET + vocabulary.GUI_MESSAGE_SETTING_CHANGE_NAME + name);
                 dataBase.updateNameByClanName(dataBase.getClanName(player), name);
                 return List.of(AnvilGUI.ResponseAction.close());
@@ -230,7 +231,7 @@ public class GuiCommand {
 
     public void AnvilGuiReTag(Player player) {
         AnvilGUI.Builder builder = new AnvilGUI.Builder();
-        DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+        DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
         String prefixOld = databaseMethods.getClanPrefix(player);
         builder.title(vocabulary.GUI_MESSAGE_SETTING_NAME_TAG);
         builder.text(prefixOld);

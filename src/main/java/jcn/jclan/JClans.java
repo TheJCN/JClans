@@ -78,7 +78,7 @@ public final class JClans extends JavaPlugin {
         Objects.requireNonNull(getCommand("c")).setExecutor(new ClanChat(connection, vocabulary));
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderApi") != null) {
-            new PlaceholderApiPlugin(connection).register();
+            new PlaceholderApiPlugin(connection, vocabulary).register();
         }
 
         logger = Bukkit.getLogger();

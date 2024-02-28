@@ -38,7 +38,7 @@ public class InviteClanCommand {
     }
 
     public void sendInvite(Player player, String[] strings){
-        if (!player.hasPermission(vocabulary.CLAN_CREATOR_PERMISSION) && !player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)){
+        if (!player.hasPermission(vocabulary.CLAN_CREATOR_PERMISSION) || !player.hasPermission(vocabulary.CLAN_MEMBER_PERMISSION)){
             player.sendMessage(ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RED + vocabulary.YOU_NEED_TO_BE_CLAN_CREATOR_TO_INVITE_ERROR);
             return;
         }
@@ -55,7 +55,7 @@ public class InviteClanCommand {
             return;
         }
 
-        DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+        DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
         String clanName = databaseMethods.getClanName(player);
         sendButtons(targetPlayer, clanName);
         player.sendMessage((ChatColor.GOLD + vocabulary.PLUGIN_PREFIX + " " + ChatColor.RESET + String.format(vocabulary.SEND_INVITE_PLAYER, targetName)));

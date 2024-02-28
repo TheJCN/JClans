@@ -13,9 +13,11 @@ import java.util.List;
 
 public class DatabaseMethods {
     private final Connection connection;
+    private final PluginVocab vocabulary;
 
-    public DatabaseMethods(Connection connection) {
+    public DatabaseMethods(Connection connection, PluginVocab vocabulary) {
         this.connection = connection;
+        this.vocabulary = vocabulary;
     }
 
     // Создание клана
@@ -55,11 +57,11 @@ public class DatabaseMethods {
             String clanCreator = resultSet.getString("ClanCreator");
             int valueOfMembers = members.split(", ").length;
 
-            info.append(ChatColor.RESET).append(i).append(". Название: ").append(clanName).append("\n");
-            info.append(ChatColor.RESET).append("Префикс: ").append(prefix).append("\n");
-            info.append(ChatColor.RESET).append("Создатель: ").append(clanCreator).append("\n");
-            info.append(ChatColor.RESET).append("Количество участников: ").append(valueOfMembers).append("\n");
-            info.append(ChatColor.GOLD).append("--------------------------------------").append(ChatColor.RESET);
+            info.append(ChatColor.RESET).append(i).append(". ").append(vocabulary.NAME).append(clanName).append("\n");
+            info.append(ChatColor.RESET).append(vocabulary.PREFIX).append(prefix).append("\n");
+            info.append(ChatColor.RESET).append(vocabulary.CREATOR).append(clanCreator).append("\n");
+            info.append(ChatColor.RESET).append(vocabulary.COUNT_MEMBERS).append(valueOfMembers).append("\n");
+            info.append(ChatColor.GOLD).append(vocabulary.LINE_SEPARATOR).append(ChatColor.RESET);
             i++;
 
             clansInfo.add(info.toString());

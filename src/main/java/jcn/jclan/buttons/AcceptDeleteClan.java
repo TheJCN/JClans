@@ -29,7 +29,7 @@ public class AcceptDeleteClan implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player){
-            DatabaseMethods databaseMethods = new DatabaseMethods(connection);
+            DatabaseMethods databaseMethods = new DatabaseMethods(connection, vocabulary);
             LuckPermsPlugin lp = new LuckPermsPlugin(luckPerms);
             List<String> clanMembers = databaseMethods.getClanMembers(databaseMethods.getClanName(player));
             for (String member : clanMembers){

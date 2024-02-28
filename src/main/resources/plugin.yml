@@ -20,6 +20,3 @@ commands:
     description: Отклонить заявку в клан
   c:
     description: Клановый чат
-permissions:
-  clan.member:
-    default: not op
