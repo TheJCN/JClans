@@ -48,7 +48,6 @@ public final class JClans extends JavaPlugin {
         saveResource("ru_ru.yml", false);
         saveResource("en_us.yml", false);
         FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(new File(getDataFolder(), lang + ".yml"));
-        logger.info(fileConfiguration.getString("123"));
         PluginVocab vocabulary = new PluginVocab(fileConfiguration);
 
         if (!setupDatabase()) {
@@ -98,7 +97,7 @@ public final class JClans extends JavaPlugin {
         String database = getConfig().getString("mysql.database");
         String username = getConfig().getString("mysql.username");
         String password = getConfig().getString("mysql.password");
-        String databaseType = getConfig().getString("database.type");
+        String databaseType = getConfig().getString("database-type");
 
         DatabaseManager databaseManager = new DatabaseManager(host, port, database, username, password, databaseType, this);
         connection = databaseManager.getConnection();

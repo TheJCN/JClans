@@ -1,13 +1,12 @@
-# Конфигурационный файл для подключения плагина к базе данных
-# Виды поддерживаемых баз данных: sqlite / mysql
+# Types of supported languages ru_ru / en_us.
+# You can also create your own file with the language you need and specify its name here.
 language: ru_ru
-database:
-  type: sqlite
+# Types of supported databases: sqlite / mysql
+database-type: sqlite
 mysql:
   host: your-mysql-host
   port: 3306
   database: JClans-DataBase
   username: your-mysql-username
   password: your-mysql-password
-
-
+# P.S: plugin does not assume the use of other color codes, but if you really need it, you can try to add color codes at your own risk, but only with the symbol "§".
